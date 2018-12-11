@@ -42,10 +42,6 @@ Hey, what's all this fuss about Paystack? Well, I personally use Paystack in pro
 
 Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
 
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/staa99/payment-integrator/tags). 
-
 ## Authors
 
 * **Ahmad Alfawwaz** - *Initial work* - [Staa99](https://github.com/staa99)
@@ -59,3 +55,7 @@ This project is licensed under the GNU Public License - see the [LICENSE.md](LIC
 ## Short Background
 
 I have always used Paystack in my projects. But I wanted to try other providers like FlutterWave so I thought of how to build something that will not depend explicitly on any particular provider.
+
+## Acknowledgments
+
+* A big thanks to [PurpleBooth](https://github.com/PurpleBooth) for the awesome template used to develop this README.
