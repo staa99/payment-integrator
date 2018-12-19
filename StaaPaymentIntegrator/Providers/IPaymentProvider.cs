@@ -1,9 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Staaworks.PaymentIntegrator.Interfaces.Requests.PaymentInitialization;
-using Staaworks.PaymentIntegrator.Interfaces.Requests.PaymentVerification;
-using Staaworks.PaymentIntegrator.Interfaces.Responses.Banks;
 using Staaworks.PaymentIntegrator.Interfaces.Responses.Transactions.PaymentInitialization;
-using Staaworks.PaymentIntegrator.Interfaces.Responses.Transactions.PaymentVerification;
+using Staaworks.PaymentIntegrator.Interfaces.Responses.Transactions.Payment;
 
 namespace Staaworks.PaymentIntegrator.Providers
 {
@@ -14,20 +12,17 @@ namespace Staaworks.PaymentIntegrator.Providers
     {
         string Name { get; }
 
-        string VerificationUrl { get; }
-        
-        string InitializationUrl { get; }
-        
-        string BanksListUrl { get; }
-        
+        string PaymentVerificationUrl { get; }
+
+        string PaymentInitializationUrl { get; }
+
         string CallbackUrl { get; }
-        
+
         string SecretKey { get; }
-        
-        Task<IBanksResponse> GetBanks ();
-        
-        Task<IPaymentInitializationResponse> MakePayment (IPaymentInitializationRequest initializationRequest);
-        
-        Task<IPaymentVerificationResponse> VerifyPayment (IPaymentVerificationRequest verificationRequest);
+
+
+        Task<IPaymentInitializationResponse> MakePayment (IPaymentInitializationRequest request);
+
+        Task<IPaymentVerificationResponse> VerifyPayment (IPaymentVerificationRequest request);
     }
 }

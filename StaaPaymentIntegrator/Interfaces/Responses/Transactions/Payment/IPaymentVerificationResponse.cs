@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Staaworks.PaymentIntegrator.Interfaces.Responses.Transactions.PaymentVerification
+namespace Staaworks.PaymentIntegrator.Interfaces.Responses.Transactions.Payment
 {
     public interface IPaymentVerificationResponse : ITransactionResponse
     {
@@ -14,10 +14,7 @@ namespace Staaworks.PaymentIntegrator.Interfaces.Responses.Transactions.PaymentV
 
         string Status { get; }
 
-        double AmountPaid { get; }
-
-        string RawJson { get; }
-
+        long AmountPaid { get; }
         Task ParseJson (string json);
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Staaworks.PaymentIntegrator.Interfaces.Responses.Transactions.PaymentVerification
+namespace Staaworks.PaymentIntegrator.Interfaces.Responses.Transactions.Payment
 {
     public abstract class BasePaymentVerificationResponse : IPaymentVerificationResponse
     {
@@ -9,10 +9,9 @@ namespace Staaworks.PaymentIntegrator.Interfaces.Responses.Transactions.PaymentV
         public abstract string BookingRef { get; }
         public abstract string Message { get; }
         public abstract string Status { get; }
-        public abstract double AmountPaid { get; }
-        public abstract string RawJson { get; }
+        public abstract long AmountPaid { get; }
         public abstract string TransactionRef { get; }
-        public string TransactionContent => RawJson;
+        public abstract string TransactionContent { get; }
 
         public abstract Task ParseJson (string json);
     }

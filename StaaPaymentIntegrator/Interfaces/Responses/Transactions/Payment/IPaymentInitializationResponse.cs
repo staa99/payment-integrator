@@ -4,7 +4,7 @@ namespace Staaworks.PaymentIntegrator.Interfaces.Responses.Transactions.PaymentI
 {
     public  interface IPaymentInitializationResponse : ITransactionResponse
     {
-        double AmountInvoiced { get; set; }
+        long AmountInvoiced { get; set; }
 
         string Reference { get; set; }
 
@@ -13,8 +13,6 @@ namespace Staaworks.PaymentIntegrator.Interfaces.Responses.Transactions.PaymentI
         string Message { get; set; }
         
         string AuthorizationUrl { get; set; }
-
-        string RawPaymentInitJSONResult { get; set; }
 
         Task ParseJson (string json);
     }
