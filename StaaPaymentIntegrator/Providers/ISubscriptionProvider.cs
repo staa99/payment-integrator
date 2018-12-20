@@ -1,20 +1,23 @@
 ﻿using System.Threading.Tasks;
 using Staaworks.PaymentIntegrator.Interfaces.Requests.Subscription;
+using Staaworks.PaymentIntegrator.Interfaces.Responses.Subscription;
 
 namespace Staaworks.PaymentIntegrator.Providers
 {
-    public interface ISubscriptionProvider
+    public interface ISubscriptionProvider : IProvider
     {
-        string Name { get; }
-
         string SubscriptionInitializationUrl { get; }
 
-        Task InitializeSubscription (ISubscriptionInitializationRequest request);
+        Task<ISubscriptionInitializationResponse> InitializeSubscription (ISubscriptionInitializationRequest request);
 
-        Task EnableSubscription (ISubscriptionEnableRequest request);
+        Task<ISubscriptionEnableRequest> EnableSubscription (ISubscriptionEnableRequest request);
 
-        Task DisableSubscription (ISubscriptionDisableRequest request);
+        Task<ISubscriptionDisableRequest> DisableSubscription (ISubscriptionDisableRequest request);
 
+        Task<ISubscriptionPlanCreationResponse> CreateSubscriptionPlan (ISubscriptionPlanCreationRequest request);
 
+        Task<ISubscriptionPlanQueryResponse> QuerySubscriptionPlans (ISubscriptionPlanQueryRequest request);
+
+        Task<ISubscriptionQueryResponse> GetSubscriptions (ISubscriptionQueryRequest request);
     }
 }

@@ -3,10 +3,8 @@ using Staaworks.PaymentIntegrator.Interfaces.Responses.Banks;
 
 namespace Staaworks.PaymentIntegrator.Providers
 {
-    interface IBanksListProvider
+    interface IBanksListProvider : IProvider
     {
-        string Name { get; }
-
         string BanksListUrl { get; }
 
         Task<IBanksResponse> GetBanks ();

@@ -11,8 +11,6 @@ namespace Staaworks.PaymentIntegrator.Providers
 
         public string PaymentInitializationUrl { get; protected set; }
 
-        public string CallbackUrl { get; protected set; }
-
         public string SecretKey { get; protected set; }
 
         public string Name { get; protected set; }

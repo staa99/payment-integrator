@@ -1,6 +1,6 @@
 ﻿namespace Staaworks.PaymentIntegrator.Interfaces.Responses
 {
-    public interface ITransactionResponse
+    public interface ITransactionResponse: IResponse
     {
         string TransactionRef { get; }
 

@@ -1,8 +1,10 @@
-﻿namespace Staaworks.PaymentIntegrator.Interfaces.Responses.SubscriptionPlan
+﻿namespace Staaworks.PaymentIntegrator.Interfaces.Responses.Subscription
 {
-    public interface ISubscriptionPlanCreationResponse
+    public interface ISubscriptionPlanCreationResponse : IResponse
     {
-        string Status { get; }
         string Reference { get; }
+        long CycleDurationInHours { get; }
+        long Amount { get; }
+        string Currency { get; }
     }
 }

@@ -1,19 +1,13 @@
-﻿using System.Threading.Tasks;
-
-namespace Staaworks.PaymentIntegrator.Interfaces.Responses.PaymentInitialization
+﻿namespace Staaworks.PaymentIntegrator.Interfaces.Responses.PaymentInitialization
 {
-    public  interface IPaymentInitializationResponse : ITransactionResponse
+    public interface IPaymentInitializationResponse : ITransactionResponse
     {
         long AmountInvoiced { get; }
 
         string Reference { get; }
 
-        string Status { get; }
-
         string Message { get; }
-        
-        string AuthorizationUrl { get; }
 
-        Task ParseJson (string json);
+        string AuthorizationUrl { get; }
     }
 }

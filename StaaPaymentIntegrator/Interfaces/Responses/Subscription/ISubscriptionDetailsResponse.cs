@@ -2,7 +2,6 @@
 {
     public interface ISubscriptionDetailsResponse
     {
-        string Status { get; }
         int Quantity { get; }
         long Amount { get; }
         string Currency { get; }

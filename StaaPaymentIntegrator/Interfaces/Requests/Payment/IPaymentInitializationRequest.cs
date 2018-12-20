@@ -7,6 +7,7 @@ namespace Staaworks.PaymentIntegrator.Interfaces.Requests.PaymentInitialization
         string Email { get; }
         string Reference { get; }
         long Amount { get; }
+        string CallbackUrl { get; }
 
         /// <summary>
         /// A method that validates the current values of properties and gives out an exception to describe the situation when invalid. Note that this function doesn't actually throw any exceptions.
