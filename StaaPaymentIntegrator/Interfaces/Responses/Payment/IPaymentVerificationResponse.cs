@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Staaworks.PaymentIntegrator.Interfaces.Responses.Transactions.Payment
+namespace Staaworks.PaymentIntegrator.Interfaces.Responses.Payment
 {
     public interface IPaymentVerificationResponse : ITransactionResponse
     {

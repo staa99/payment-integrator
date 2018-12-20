@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Staaworks.PaymentIntegrator.Interfaces.Requests.SubscriptionInitialization
+namespace Staaworks.PaymentIntegrator.Interfaces.Requests.Subscription
 {
-    public interface ISubscriptionInitializationRequest
+    public interface ISubscriptionInitializationRequest : IRequest
     {
         string Customer { get; }
 

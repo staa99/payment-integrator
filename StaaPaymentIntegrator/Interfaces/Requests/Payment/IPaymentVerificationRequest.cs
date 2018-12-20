@@ -2,10 +2,10 @@
 
 namespace Staaworks.PaymentIntegrator.Interfaces.Requests.PaymentInitialization
 {
-    public interface IPaymentVerificationRequest
+    public interface IPaymentVerificationRequest: IRequest
     {
-        string ReferenceNo { get; set; }
-        long Amount { get; set; }
+        string Reference { get; }
+        long Amount { get; }
 
         /// <summary>
         /// A method that validates the current values of properties and gives out an exception to describe the situation when invalid. Note that this function doesn't actually throw any exceptions.

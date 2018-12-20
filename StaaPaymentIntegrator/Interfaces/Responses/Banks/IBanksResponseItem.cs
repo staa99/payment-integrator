@@ -2,7 +2,8 @@
 {
     public interface IBanksResponseItem
     {
-        string Name { get; set; }
-        string Code { get; set; }
+        string Name { get; }
+        string Code { get; }
+        string Raw { get; }
     }
 }

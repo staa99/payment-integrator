@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Staaworks.PaymentIntegrator.Interfaces.Requests.PaymentInitialization;
-using Staaworks.PaymentIntegrator.Interfaces.Responses.Transactions.PaymentInitialization;
-using Staaworks.PaymentIntegrator.Interfaces.Responses.Transactions.Payment;
+using Staaworks.PaymentIntegrator.Interfaces.Responses.PaymentInitialization;
+using Staaworks.PaymentIntegrator.Interfaces.Responses.Payment;
 
 namespace Staaworks.PaymentIntegrator.Providers
 {

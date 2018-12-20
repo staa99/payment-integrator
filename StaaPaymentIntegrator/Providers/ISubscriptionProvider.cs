@@ -1,17 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using Staaworks.PaymentIntegrator.Interfaces.Requests.SubscriptionInitialization;
+﻿using System.Threading.Tasks;
+using Staaworks.PaymentIntegrator.Interfaces.Requests.Subscription;
 
 namespace Staaworks.PaymentIntegrator.Providers
 {
     public interface ISubscriptionProvider
     {
-        string Name { get; set; }
+        string Name { get; }
 
-        string SubscriptionInitializationUrl { get; set; }
+        string SubscriptionInitializationUrl { get; }
 
         Task InitializeSubscription (ISubscriptionInitializationRequest request);
+
+        Task EnableSubscription (ISubscriptionEnableRequest request);
+
+        Task DisableSubscription (ISubscriptionDisableRequest request);
+
+
     }
 }

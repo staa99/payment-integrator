@@ -1,4 +1,4 @@
-﻿namespace Staaworks.PaymentIntegrator.Interfaces.Responses.Transactions
+﻿namespace Staaworks.PaymentIntegrator.Interfaces.Responses
 {
     public interface ITransactionResponse
     {

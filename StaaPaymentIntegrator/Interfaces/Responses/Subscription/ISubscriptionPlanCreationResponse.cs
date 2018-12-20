@@ -1,4 +1,4 @@
-﻿namespace Staaworks.PaymentIntegrator.Interfaces.Responses.Transactions.SubscriptionPlan
+﻿namespace Staaworks.PaymentIntegrator.Interfaces.Responses.SubscriptionPlan
 {
     public interface ISubscriptionPlanCreationResponse
     {

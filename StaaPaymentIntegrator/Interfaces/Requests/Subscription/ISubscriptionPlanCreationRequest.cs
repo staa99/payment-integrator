@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Newtonsoft.Json.Linq;
-
-namespace Staaworks.PaymentIntegrator.Interfaces.Requests.SubscriptionInitialization
+﻿namespace Staaworks.PaymentIntegrator.Interfaces.Requests.Subscription
 {
-    public interface ISubscriptionPlanCreationRequest
+    public interface ISubscriptionPlanCreationRequest : IRequest
     {
         string Name { get; }
         long CycleDurationInHours { get; }
         long Amount { get; }
         string Currency { get; }
-        JObject SerializeToJson ();
     }
 }

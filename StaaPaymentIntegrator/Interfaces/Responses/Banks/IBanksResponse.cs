@@ -1,10 +1,7 @@
-﻿using System.Collections.Generic;
-using Newtonsoft.Json.Linq;
-
-namespace Staaworks.PaymentIntegrator.Interfaces.Responses.Banks
+﻿namespace Staaworks.PaymentIntegrator.Interfaces.Responses.Banks
 {
-    public interface IBanksResponse
+    public interface IBanksResponse : IResponse
     {
-        IDictionary<IBanksResponseItem, JObject> Banks { get; }
+        IBanksResponseItem[] Banks { get; }
     }
 }
