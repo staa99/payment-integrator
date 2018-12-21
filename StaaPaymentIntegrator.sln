@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2041
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StaaPaymentIntegrator", "StaaPaymentIntegrator\StaaPaymentIntegrator.csproj", "{842DC08C-9365-4B95-B8BF-1F1559862C26}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StaaPaymentIntegrator", "StaaPaymentIntegrator\StaaPaymentIntegrator.csproj", "{842DC08C-9365-4B95-B8BF-1F1559862C26}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StaaPaymentIntegrator.Paystack", "StaaPaymentIntegrator.Paystack\StaaPaymentIntegrator.Paystack.csproj", "{7F6C7377-05E1-4FFA-9AAF-904B4194B842}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StaaPaymentIntegrator.Paystack", "StaaPaymentIntegrator.Paystack\StaaPaymentIntegrator.Paystack.csproj", "{7F6C7377-05E1-4FFA-9AAF-904B4194B842}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StaaPaymentIntegrator.Paystack.Tests", "StaaPaymentIntegrator.Paystack.Tests\StaaPaymentIntegrator.Paystack.Tests.csproj", "{1D080428-A629-40E0-9AAC-E21276B686DC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{7F6C7377-05E1-4FFA-9AAF-904B4194B842}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F6C7377-05E1-4FFA-9AAF-904B4194B842}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7F6C7377-05E1-4FFA-9AAF-904B4194B842}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D080428-A629-40E0-9AAC-E21276B686DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D080428-A629-40E0-9AAC-E21276B686DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D080428-A629-40E0-9AAC-E21276B686DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D080428-A629-40E0-9AAC-E21276B686DC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

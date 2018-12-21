@@ -6,13 +6,19 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <Authors>Staa99</Authors>
-    <Description>This Payment Integrator is simply a set of interfaces extensible to implement many payment processing platforms. A few examples of implementations of this project can be found in other projects.</Description>
+    <Description>This Payment Integrator is simply a set of interfaces extensible to implement many payment processing platforms. A few examples of implementations of this project can be found in other projects.
+
+What's new in 1.1.0:
+No external API changes made.
+Major improvements with respect to code structure.
+Unit tests written for the Paystack implementation.</Description>
     <RepositoryUrl>https://github.com/staa99/payment-integrator</RepositoryUrl>
     <RepositoryType>Github</RepositoryType>
     <PackageTags>payment; paystack; flutterwave;</PackageTags>
     <PackageProjectUrl>https://github.com/staa99/payment-integrator</PackageProjectUrl>
     <Product>PaymentIntegrator</Product>
     <PackageLicenseUrl>https://www.gnu.org/licenses/gpl.txt</PackageLicenseUrl>
+    <Version>1.1.0</Version>
   </PropertyGroup>
 
   <ItemGroup>

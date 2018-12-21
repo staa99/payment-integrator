@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Staaworks.PaymentIntegrator.Interfaces.Requests.Banks
+﻿namespace Staaworks.PaymentIntegrator.Interfaces.Requests.Banks
 {
-    public interface IBankAccountNameQueryRequest
+    public interface IBankAccountNameQueryRequest : IRequest
     {
         string AccountNumber { get; }
         string BankReference { get; }

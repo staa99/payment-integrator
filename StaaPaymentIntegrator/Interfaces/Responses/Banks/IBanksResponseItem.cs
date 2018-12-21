@@ -3,7 +3,7 @@
     public interface IBanksResponseItem
     {
         string Name { get; }
-        string Code { get; }
+        string Reference { get; }
         string Raw { get; }
     }
 }
