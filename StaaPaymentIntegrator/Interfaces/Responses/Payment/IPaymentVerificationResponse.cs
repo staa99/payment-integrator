@@ -1,15 +1,15 @@
 ﻿namespace Staaworks.PaymentIntegrator.Interfaces.Responses.Payment
 {
-    public interface IPaymentVerificationResponse : ITransactionResponse
+    public interface IPaymentVerificationResponse : IResponse
     {
         bool Successful { get; }
 
-        string PaymentRef { get; }
+        string AuthorizationReference { get; }
 
-        string BookingRef { get; }
+        string Reference { get; }
 
         string Message { get; }
 
-        long AmountPaid { get; }
+        long Amount { get; }
     }
 }

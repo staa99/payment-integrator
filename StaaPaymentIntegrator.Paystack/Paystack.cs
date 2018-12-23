@@ -1,6 +1,6 @@
 ﻿using Staaworks.PaymentIntegrator.Providers;
 
-namespace StaaPaymentIntegrator.Paystack
+namespace Staaworks.PaymentIntegrator.Paystack
 {
     public partial class Paystack : IProvider
     {

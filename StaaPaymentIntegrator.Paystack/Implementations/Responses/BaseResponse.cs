@@ -3,8 +3,9 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Staaworks.PaymentIntegrator.Interfaces.Responses;
+using Staaworks.PaymentIntegrator.Paystack.Utilities;
 
-namespace StaaPaymentIntegrator.Paystack.Implementations.Responses
+namespace Staaworks.PaymentIntegrator.Paystack.Implementations.Responses
 {
     public abstract class BaseResponse : IResponse
     {
@@ -16,8 +17,39 @@ namespace StaaPaymentIntegrator.Paystack.Implementations.Responses
         {
             try
             {
-                var ret = DoParse(JObject.Parse(response));
+                var token = JObject.Parse(response);
+                
+                string status;
+                var data = token["data"];
+                if (data == null || data["status"] == null)
+                {
+                    status = token["status"].ToString();
+                }
+                else
+                {
+                    status = data["status"].ToString();
+                }
+                    
+                
+                if (bool.TryParse(status, out var boolStatus))
+                {
+                    if (boolStatus)
+                    {
+                        Status = nameof(APICallStatus.success);
+                    }
+                    else
+                    {
+                        Status = nameof(APICallStatus.failed);
+                    }
+                }
+                else
+                {
+                    Status = status;
+                }
+
                 Raw = response;
+
+                var ret = DoParse(token, Status);
                 return ret;
             }
             catch (JsonException ex)
@@ -26,6 +58,6 @@ namespace StaaPaymentIntegrator.Paystack.Implementations.Responses
             }
         }
 
-        protected abstract Task DoParse (JObject token);
+        protected abstract Task DoParse (JObject token, string status);
     }
 }

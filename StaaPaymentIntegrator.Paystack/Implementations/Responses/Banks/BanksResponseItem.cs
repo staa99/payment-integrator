@@ -1,6 +1,6 @@
 ﻿using Staaworks.PaymentIntegrator.Interfaces.Responses.Banks;
 
-namespace StaaPaymentIntegrator.Paystack.Implementations.Responses.Banks
+namespace Staaworks.PaymentIntegrator.Paystack.Implementations.Responses.Banks
 {
     public class BanksResponseItem : IBanksResponseItem
     {

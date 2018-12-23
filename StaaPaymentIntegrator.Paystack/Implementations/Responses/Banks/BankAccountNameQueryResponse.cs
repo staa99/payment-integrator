@@ -1,8 +1,9 @@
 ﻿using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using Staaworks.PaymentIntegrator.Interfaces.Responses.Banks;
+using Staaworks.PaymentIntegrator.Paystack.Utilities;
 
-namespace StaaPaymentIntegrator.Paystack.Implementations.Responses.Banks
+namespace Staaworks.PaymentIntegrator.Paystack.Implementations.Responses.Banks
 {
     public class BankAccountNameQueryResponse : BaseResponse, IBankAccountNameQueryResponse
     {
@@ -10,12 +11,11 @@ namespace StaaPaymentIntegrator.Paystack.Implementations.Responses.Banks
 
         public string AccountNumber { get; private set; }
 
-        protected override Task DoParse (JObject token) => Task.Run(() =>
+        protected override Task DoParse (JObject token, string status) => Task.Run(() =>
         {
             var data = token["data"];
-            var status = token["status"];
 
-            if (data != null && status.ToObject<bool>())
+            if (data != null && status == nameof(APICallStatus.success))
             {
                 AccountName = data["account_name"].ToString();
                 AccountNumber = data["account_number"].ToString();

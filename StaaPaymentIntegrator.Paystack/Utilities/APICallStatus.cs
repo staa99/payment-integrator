@@ -1,4 +1,4 @@
-﻿namespace StaaPaymentIntegrator.Paystack.Utilities
+﻿namespace Staaworks.PaymentIntegrator.Paystack.Utilities
 {
     public enum APICallStatus
     {

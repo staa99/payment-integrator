@@ -1,9 +1,7 @@
 ﻿namespace Staaworks.PaymentIntegrator.Interfaces.Responses.PaymentInitialization
 {
-    public interface IPaymentInitializationResponse : ITransactionResponse
+    public interface IPaymentInitializationResponse : IResponse
     {
-        long AmountInvoiced { get; }
-
         string Reference { get; }
 
         string Message { get; }

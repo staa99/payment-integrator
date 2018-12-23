@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using StaaPaymentIntegrator.Paystack.Utilities;
+using Staaworks.PaymentIntegrator.Paystack.Utilities;
 
-namespace StaaPaymentIntegrator.Paystack.Tests.Utilities
+namespace Staaworks.PaymentIntegrator.Paystack.Tests.Utilities
 {
     [TestClass]
     public class TestAPICallStatus

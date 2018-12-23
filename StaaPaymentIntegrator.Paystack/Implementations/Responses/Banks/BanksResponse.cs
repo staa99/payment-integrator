@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
-using StaaPaymentIntegrator.Paystack.Utilities;
 using Staaworks.PaymentIntegrator.Interfaces.Responses.Banks;
+using Staaworks.PaymentIntegrator.Paystack.Utilities;
 
-namespace StaaPaymentIntegrator.Paystack.Implementations.Responses.Banks
+namespace Staaworks.PaymentIntegrator.Paystack.Implementations.Responses.Banks
 {
     /// <summary>
     /// This is the response to the GetBanks API. This provides a list of banks with needed data
@@ -12,14 +12,12 @@ namespace StaaPaymentIntegrator.Paystack.Implementations.Responses.Banks
     {
         public IBanksResponseItem[] Banks { get; private set; }
 
-        protected override async Task DoParse (JObject token) => await Task.Run(() =>
+        protected override async Task DoParse (JObject token, string status) => await Task.Run(() =>
         {
             var data = token["data"];
-            var status = token["status"];
 
-            if (data != null && status.ToObject<bool>())
+            if (data != null && status == nameof(APICallStatus.success))
             {
-                Status = nameof(APICallStatus.success);
                 var i = 0;
 
                 foreach (var obj in data)

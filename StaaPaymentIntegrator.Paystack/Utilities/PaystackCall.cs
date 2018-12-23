@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Staaworks.PaymentIntegrator.Interfaces.Responses;
 using Staaworks.PaymentIntegrator.Utilities;
 
-namespace StaaPaymentIntegrator.Paystack.Utilities
+namespace Staaworks.PaymentIntegrator.Paystack.Utilities
 {
     internal class PaystackCall<IResponseType> : APICall<IResponseType> where IResponseType : IResponse
     {

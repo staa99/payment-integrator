@@ -1,4 +1,6 @@
-﻿namespace Staaworks.PaymentIntegrator.Providers
+﻿using System;
+
+namespace Staaworks.PaymentIntegrator.Providers
 {
     public interface IProvider
     {

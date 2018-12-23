@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using Staaworks.PaymentIntegrator.Interfaces.Requests.PaymentInitialization;
+using Staaworks.PaymentIntegrator.Interfaces.Requests.Payment;
 using Staaworks.PaymentIntegrator.Interfaces.Responses.Payment;
 using Staaworks.PaymentIntegrator.Interfaces.Responses.PaymentInitialization;
 
@@ -14,8 +14,20 @@ namespace Staaworks.PaymentIntegrator.Providers
 
         string PaymentInitializationUrl { get; }
 
+        string PaymentChargeAuthorizationUrl { get; }
+
+        string PaymentReauthorizationUrl { get; }
+
+        string PaymentCheckAuthorizationUrl { get; }
+
         Task<IPaymentInitializationResponse> MakePayment (IPaymentInitializationRequest request);
 
         Task<IPaymentVerificationResponse> VerifyPayment (IPaymentVerificationRequest request);
+
+        Task<IPaymentChargeAuthorizationRequest> ChargeAuthorization (IPaymentChargeAuthorizationRequest request);
+
+        Task<IPaymentReauthorizationRequest> RequestReauthorization (IPaymentReauthorizationRequest request);
+
+        Task<IPaymentAuthorizationCheckRequest> CheckAuthorization (IPaymentAuthorizationCheckRequest request);
     }
 }
