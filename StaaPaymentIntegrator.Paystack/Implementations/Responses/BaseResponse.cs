@@ -18,7 +18,7 @@ namespace Staaworks.PaymentIntegrator.Paystack.Implementations.Responses
             try
             {
                 var token = JObject.Parse(response);
-                
+
                 string status;
                 var data = token["data"];
                 if (data == null || data["status"] == null)
@@ -29,8 +29,8 @@ namespace Staaworks.PaymentIntegrator.Paystack.Implementations.Responses
                 {
                     status = data["status"].ToString();
                 }
-                    
-                
+
+
                 if (bool.TryParse(status, out var boolStatus))
                 {
                     if (boolStatus)
@@ -49,7 +49,7 @@ namespace Staaworks.PaymentIntegrator.Paystack.Implementations.Responses
 
                 Raw = response;
 
-                var ret = DoParse(token, Status);
+                var ret = DoParse(data, Status);
                 return ret;
             }
             catch (JsonException ex)
@@ -58,6 +58,6 @@ namespace Staaworks.PaymentIntegrator.Paystack.Implementations.Responses
             }
         }
 
-        protected abstract Task DoParse (JObject token, string status);
+        protected abstract Task DoParse (JToken data, string status);
     }
 }

@@ -10,12 +10,13 @@ namespace Staaworks.PaymentIntegrator.Paystack.Implementations.Responses.Banks
     /// </summary>
     public class BanksResponse : BaseResponse, IBanksResponse
     {
+        internal BanksResponse () { }
+
+
         public IBanksResponseItem[] Banks { get; private set; }
 
-        protected override async Task DoParse (JObject token, string status) => await Task.Run(() =>
+        protected override async Task DoParse (JToken data, string status) => await Task.Run(() =>
         {
-            var data = token["data"];
-
             if (data != null && status == nameof(APICallStatus.success))
             {
                 var i = 0;

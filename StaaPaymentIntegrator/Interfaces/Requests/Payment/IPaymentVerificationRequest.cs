@@ -3,6 +3,5 @@
     public interface IPaymentVerificationRequest : IRequest
     {
         string Reference { get; }
-        long Amount { get; }
     }
 }

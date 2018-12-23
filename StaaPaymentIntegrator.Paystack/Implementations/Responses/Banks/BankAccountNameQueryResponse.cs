@@ -7,14 +7,15 @@ namespace Staaworks.PaymentIntegrator.Paystack.Implementations.Responses.Banks
 {
     public class BankAccountNameQueryResponse : BaseResponse, IBankAccountNameQueryResponse
     {
+        internal BankAccountNameQueryResponse () { }
+
+
         public string AccountName { get; private set; }
 
         public string AccountNumber { get; private set; }
 
-        protected override Task DoParse (JObject token, string status) => Task.Run(() =>
+        protected override Task DoParse (JToken data, string status) => Task.Run(() =>
         {
-            var data = token["data"];
-
             if (data != null && status == nameof(APICallStatus.success))
             {
                 AccountName = data["account_name"].ToString();

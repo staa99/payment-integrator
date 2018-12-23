@@ -73,12 +73,12 @@ namespace Staaworks.PaymentIntegrator.Paystack
 
         private async Task<IPaymentVerificationResponse> OnVerifyPaymentResult (string json, HttpStatusCode statusCode)
         {
-            var response = new PaymentInitializationResponse();
+            var response = new PaymentVerificationResponse();
             await response.Parse(json);
             return response;
         }
 
-        private Task<IPaymentVerificationResponse> OnVerifyPaymentError (Exception ex) => throw new Exception("An error occurred while initializing the request.", ex);
+        private Task<IPaymentVerificationResponse> OnVerifyPaymentError (Exception ex) => throw new Exception("An error occurred while verifying the request.", ex);
         #endregion
 
         private void IsPaymentAPIReady ()

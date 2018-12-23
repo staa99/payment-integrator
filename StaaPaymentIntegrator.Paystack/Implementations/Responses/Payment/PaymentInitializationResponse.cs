@@ -7,20 +7,21 @@ namespace Staaworks.PaymentIntegrator.Paystack.Implementations.Responses.Payment
 {
     public class PaymentInitializationResponse : BaseResponse, IPaymentInitializationResponse
     {
+        internal PaymentInitializationResponse () { }
+
+
         public string Reference { get; private set; }
 
         public string Message { get; private set; }
 
         public string AuthorizationUrl { get; private set; }
 
-        protected override Task DoParse (JObject token, string status) => Task.Run(() =>
+        protected override Task DoParse (JToken data, string status) => Task.Run(() =>
         {
-            var data = token["data"];
-            
             if (data != null && status == nameof(APICallStatus.success))
             {
                 Reference = data["reference"].ToString();
-                Message = token["message"].ToString();
+                Message = data.Parent["message"].ToString();
                 AuthorizationUrl = data["authorization_url"].ToString();
             }
         });
