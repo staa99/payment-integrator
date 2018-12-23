@@ -24,7 +24,7 @@ namespace Staaworks.PaymentIntegrator.Providers
 
         Task<IPaymentVerificationResponse> VerifyPayment (IPaymentVerificationRequest request);
 
-        Task<IPaymentChargeAuthorizationRequest> ChargeAuthorization (IPaymentChargeAuthorizationRequest request);
+        Task<IPaymentChargeAuthorizationResponse> ChargeAuthorization (IPaymentChargeAuthorizationRequest request);
 
         Task<IPaymentReauthorizationRequest> RequestReauthorization (IPaymentReauthorizationRequest request);
 

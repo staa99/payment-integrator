@@ -33,7 +33,20 @@ namespace Staaworks.PaymentIntegrator.Paystack
         }
 
         #region Charge Authorization
-        public Task<IPaymentChargeAuthorizationRequest> ChargeAuthorization (IPaymentChargeAuthorizationRequest request) => throw new NotImplementedException();
+        public async Task<IPaymentChargeAuthorizationResponse> ChargeAuthorization (IPaymentChargeAuthorizationRequest request)
+        {
+            AssertReady(IsPaymentAPIReady);
+            return await PaystackCall<IPaymentChargeAuthorizationResponse>.Post(PaymentInitializationUrl, SecretKey, await request.Serialize(), OnChargeAuthorizationError, OnChargeAuthorizationResult);
+        }
+
+        private async Task<IPaymentChargeAuthorizationResponse> OnChargeAuthorizationResult (string json, HttpStatusCode statusCode)
+        {
+            var response = new PaymentChargeAuthorizationResponse();
+            await response.Parse(json);
+            return response;
+        }
+
+        private Task<IPaymentChargeAuthorizationResponse> OnChargeAuthorizationError (Exception ex) => throw new Exception("An error occurred while initializing the request.", ex);
         #endregion
 
 
