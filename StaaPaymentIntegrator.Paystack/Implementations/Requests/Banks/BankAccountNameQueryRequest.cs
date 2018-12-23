@@ -8,8 +8,8 @@ namespace Staaworks.PaymentIntegrator.Paystack.Implementations.Requests.Banks
     {
         public BankAccountNameQueryRequest (string accountNumber, string bankReference)
         {
-            AccountNumber = accountNumber;
-            BankReference = bankReference;
+            AccountNumber = accountNumber ?? throw new ArgumentNullException(nameof(accountNumber));
+            BankReference = bankReference ?? throw new ArgumentNullException(nameof(bankReference));
         }
 
         public string AccountNumber { get; }
