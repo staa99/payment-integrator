@@ -3,7 +3,7 @@
     /// <summary>
     /// This contract defines the outer structure of requests to determine if the customer has enough money to allow a transaction to be authorized.
     /// </summary>
-    public interface IPaymentAuthorizationCheckRequest : IRequest
+    public interface IPaymentCheckAuthorizationRequest : IRequest
     {
         string AuthorizationReference { get; }
         string Amount { get; }
