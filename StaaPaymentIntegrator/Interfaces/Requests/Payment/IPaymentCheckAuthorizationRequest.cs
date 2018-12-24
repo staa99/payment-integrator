@@ -6,7 +6,7 @@
     public interface IPaymentCheckAuthorizationRequest : IRequest
     {
         string AuthorizationReference { get; }
-        string Amount { get; }
+        long Amount { get; }
         string Email { get; }
         string Currency { get; }
     }

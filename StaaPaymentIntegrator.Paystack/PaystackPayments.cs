@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 using Staaworks.PaymentIntegrator.Interfaces.Requests.Payment;
@@ -88,7 +87,20 @@ namespace Staaworks.PaymentIntegrator.Paystack
 
 
         #region Request Reauthorization
-        public Task<IPaymentReauthorizationResponse> RequestReauthorization (IPaymentReauthorizationRequest request) => throw new NotImplementedException();
+        public async Task<IPaymentReauthorizationResponse> RequestReauthorization (IPaymentReauthorizationRequest request)
+        {
+            AssertReady(IsPaymentAPIReady);
+            return await PaystackCall<IPaymentReauthorizationResponse>.Post(PaymentReauthorizationUrl, SecretKey, await request.Serialize(), OnReauthorizationError, OnReauthorizationResult);
+        }
+
+        private async Task<IPaymentReauthorizationResponse> OnReauthorizationResult (string json, HttpStatusCode statusCode)
+        {
+            var response = new PaymentReauthorizationResponse();
+            await response.Parse(json);
+            return response;
+        }
+
+        private Task<IPaymentReauthorizationResponse> OnReauthorizationError (Exception ex) => throw new Exception("An error occurred while initializing the request.", ex);
         #endregion
 
         #region Verify Payment

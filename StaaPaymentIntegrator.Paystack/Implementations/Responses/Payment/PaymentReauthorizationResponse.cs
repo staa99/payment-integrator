@@ -1,23 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 using Staaworks.PaymentIntegrator.Interfaces.Responses.Payment;
+using Staaworks.PaymentIntegrator.Paystack.Utilities;
 
 namespace Staaworks.PaymentIntegrator.Paystack.Implementations.Responses.Payment
 {
-    public class PaymentReauthorizationResponse : IPaymentReauthorizationResponse
+    public class PaymentReauthorizationResponse : BaseResponse, IPaymentReauthorizationResponse
     {
-        public string Reference => throw new NotImplementedException();
+        internal PaymentReauthorizationResponse () { }
 
-        public string Message => throw new NotImplementedException();
 
-        public string ReauthorizationUrl => throw new NotImplementedException();
+        public string Reference { get; private set; }
 
-        public string Status => throw new NotImplementedException();
+        public string Message { get; private set; }
 
-        public string Raw => throw new NotImplementedException();
+        public string ReauthorizationUrl { get; private set; }
 
-        public Task Parse (string response) => throw new NotImplementedException();
+        protected override Task DoParse (JToken data, string status) => Task.Run(() =>
+        {
+            if (data != null && status == nameof(APICallStatus.success))
+            {
+                Reference = data["reference"].ToString();
+                Message = data.Parent["message"].ToString();
+                ReauthorizationUrl = data["reauthorization_url"].ToString();
+            }
+        });
     }
 }
