@@ -11,15 +11,13 @@ namespace Staaworks.PaymentIntegrator.Paystack.Implementations.Responses.Payment
 
         public string Currency { get; private set; }
 
-        public string Message { get; private set; }
-
 
         protected override Task DoParse (JToken data, string status) => Task.Run(() =>
         {
             if (data != null && status == nameof(APICallStatus.success))
             {
                 Amount = data["amount"].ToObject<long>();
-                Message = data.Parent["message"].ToString();
+                Message = data.Root["message"].ToString();
                 Currency = data["currency"].ToString();
             }
         });

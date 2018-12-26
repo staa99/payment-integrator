@@ -13,6 +13,8 @@ namespace Staaworks.PaymentIntegrator.Paystack.Implementations.Responses
 
         public string Raw { get; private set; }
 
+        public string Message { get; protected set; }
+
         public Task Parse (string response)
         {
             try
@@ -21,7 +23,8 @@ namespace Staaworks.PaymentIntegrator.Paystack.Implementations.Responses
 
                 string status;
                 var data = token["data"];
-                if (data == null || data["status"] == null)
+
+                if (data == null || data.Type == JTokenType.Array || data["status"] == null)
                 {
                     status = token["status"].ToString();
                 }
@@ -48,6 +51,8 @@ namespace Staaworks.PaymentIntegrator.Paystack.Implementations.Responses
                 }
 
                 Raw = response;
+
+                Message = token["message"].ToString();
 
                 var ret = DoParse(data, Status);
                 return ret;

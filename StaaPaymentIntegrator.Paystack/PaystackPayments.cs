@@ -2,11 +2,12 @@
 using System.Net;
 using System.Threading.Tasks;
 using Staaworks.PaymentIntegrator.Interfaces.Requests.Payment;
+using Staaworks.PaymentIntegrator.Interfaces.Responses;
 using Staaworks.PaymentIntegrator.Interfaces.Responses.Payment;
 using Staaworks.PaymentIntegrator.Interfaces.Responses.PaymentInitialization;
 using Staaworks.PaymentIntegrator.Paystack.Implementations.Responses.Payment;
-using Staaworks.PaymentIntegrator.Paystack.Utilities;
 using Staaworks.PaymentIntegrator.Providers;
+using Staaworks.PaymentIntegrator.Utilities;
 using static Staaworks.PaymentIntegrator.Paystack.Utilities.RequestPreparations;
 
 namespace Staaworks.PaymentIntegrator.Paystack
@@ -36,17 +37,15 @@ namespace Staaworks.PaymentIntegrator.Paystack
         public async Task<IPaymentChargeAuthorizationResponse> ChargeAuthorization (IPaymentChargeAuthorizationRequest request)
         {
             AssertReady(IsPaymentAPIReady);
-            return await PaystackCall<IPaymentChargeAuthorizationResponse>.Post(PaymentChargeAuthorizationUrl, SecretKey, await request.Serialize(), OnChargeAuthorizationError, OnChargeAuthorizationResult);
+            return await Caller.Initialize("POST", PaymentChargeAuthorizationUrl, SecretKey, OnChargeAuthorizationError, OnChargeAuthorizationResult, await request.Serialize()).Call() as IPaymentChargeAuthorizationResponse;
         }
 
-        private async Task<IPaymentChargeAuthorizationResponse> OnChargeAuthorizationResult (string json, HttpStatusCode statusCode)
+        private async Task<IResponse> OnChargeAuthorizationResult (string json, HttpStatusCode statusCode)
         {
-            var response = new PaymentChargeAuthorizationResponse();
-            await response.Parse(json);
-            return response;
+            return await SimpleResponseInitializer.Initialize<PaymentChargeAuthorizationResponse>(json);
         }
 
-        private Task<IPaymentChargeAuthorizationResponse> OnChargeAuthorizationError (Exception ex) => throw new Exception("An error occurred while initializing the charge request.", ex);
+        private Task<IResponse> OnChargeAuthorizationError (Exception ex) => throw new Exception("An error occurred while initializing the charge request.", ex);
         #endregion
 
 
@@ -54,17 +53,15 @@ namespace Staaworks.PaymentIntegrator.Paystack
         public async Task<IPaymentCheckAuthorizationResponse> CheckAuthorization (IPaymentCheckAuthorizationRequest request)
         {
             AssertReady(IsPaymentAPIReady);
-            return await PaystackCall<IPaymentCheckAuthorizationResponse>.Post(PaymentCheckAuthorizationUrl, SecretKey, await request.Serialize(), OnCheckAuthorizationError, OnCheckAuthorizationResult);
+            return await Caller.Initialize("POST", PaymentCheckAuthorizationUrl, SecretKey, OnCheckAuthorizationError, OnCheckAuthorizationResult, await request.Serialize()).Call() as IPaymentCheckAuthorizationResponse;
         }
 
-        private async Task<IPaymentCheckAuthorizationResponse> OnCheckAuthorizationResult (string json, HttpStatusCode statusCode)
+        private async Task<IResponse> OnCheckAuthorizationResult (string json, HttpStatusCode statusCode)
         {
-            var response = new PaymentCheckAuthorizationResponse();
-            await response.Parse(json);
-            return response;
+            return await SimpleResponseInitializer.Initialize<PaymentCheckAuthorizationResponse>(json);
         }
 
-        private Task<IPaymentCheckAuthorizationResponse> OnCheckAuthorizationError (Exception ex) => throw new Exception("An error occurred while initializing the request.", ex);
+        private Task<IResponse> OnCheckAuthorizationError (Exception ex) => throw new Exception("An error occurred while initializing the request.", ex);
         #endregion
 
 
@@ -72,17 +69,15 @@ namespace Staaworks.PaymentIntegrator.Paystack
         public async Task<IPaymentInitializationResponse> MakePayment (IPaymentInitializationRequest request)
         {
             AssertReady(IsPaymentAPIReady);
-            return await PaystackCall<IPaymentInitializationResponse>.Post(PaymentInitializationUrl, SecretKey, await request.Serialize(), OnMakePaymentError, OnMakePaymentResult);
+            return await Caller.Initialize("POST", PaymentInitializationUrl, SecretKey, OnMakePaymentError, OnMakePaymentResult, await request.Serialize()).Call() as IPaymentInitializationResponse;
         }
 
-        private async Task<IPaymentInitializationResponse> OnMakePaymentResult (string json, HttpStatusCode statusCode)
+        private async Task<IResponse> OnMakePaymentResult (string json, HttpStatusCode statusCode)
         {
-            var response = new PaymentInitializationResponse();
-            await response.Parse(json);
-            return response;
+            return await SimpleResponseInitializer.Initialize<PaymentInitializationResponse>(json);
         }
 
-        private Task<IPaymentInitializationResponse> OnMakePaymentError (Exception ex) => throw new Exception("An error occurred while initializing the payment.", ex);
+        private Task<IResponse> OnMakePaymentError (Exception ex) => throw new Exception("An error occurred while initializing the payment.", ex);
         #endregion
 
 
@@ -90,34 +85,30 @@ namespace Staaworks.PaymentIntegrator.Paystack
         public async Task<IPaymentReauthorizationResponse> RequestReauthorization (IPaymentReauthorizationRequest request)
         {
             AssertReady(IsPaymentAPIReady);
-            return await PaystackCall<IPaymentReauthorizationResponse>.Post(PaymentReauthorizationUrl, SecretKey, await request.Serialize(), OnReauthorizationError, OnReauthorizationResult);
+            return await Caller.Initialize("POST", PaymentReauthorizationUrl, SecretKey, OnReauthorizationError, OnReauthorizationResult, await request.Serialize()).Call() as IPaymentReauthorizationResponse;
         }
 
-        private async Task<IPaymentReauthorizationResponse> OnReauthorizationResult (string json, HttpStatusCode statusCode)
+        private async Task<IResponse> OnReauthorizationResult (string json, HttpStatusCode statusCode)
         {
-            var response = new PaymentReauthorizationResponse();
-            await response.Parse(json);
-            return response;
+            return await SimpleResponseInitializer.Initialize<PaymentReauthorizationResponse>(json);
         }
 
-        private Task<IPaymentReauthorizationResponse> OnReauthorizationError (Exception ex) => throw new Exception("An error occurred while initializing the request.", ex);
+        private Task<IResponse> OnReauthorizationError (Exception ex) => throw new Exception("An error occurred while initializing the request.", ex);
         #endregion
 
         #region Verify Payment
-        public Task<IPaymentVerificationResponse> VerifyPayment (IPaymentVerificationRequest request)
+        public async Task<IPaymentVerificationResponse> VerifyPayment (IPaymentVerificationRequest request)
         {
             AssertReady(IsPaymentAPIReady);
-            return PaystackCall<IPaymentVerificationResponse>.Get(PaymentVerificationUrl + request.Serialize().Result, SecretKey, OnVerifyPaymentError, OnVerifyPaymentResult);
+            return await Caller.Initialize("GET", PaymentVerificationUrl + request.Serialize().Result, SecretKey, OnVerifyPaymentError, OnVerifyPaymentResult).Call() as IPaymentVerificationResponse;
         }
 
-        private async Task<IPaymentVerificationResponse> OnVerifyPaymentResult (string json, HttpStatusCode statusCode)
+        private async Task<IResponse> OnVerifyPaymentResult (string json, HttpStatusCode statusCode)
         {
-            var response = new PaymentVerificationResponse();
-            await response.Parse(json);
-            return response;
+            return await SimpleResponseInitializer.Initialize<PaymentVerificationResponse>(json);
         }
 
-        private Task<IPaymentVerificationResponse> OnVerifyPaymentError (Exception ex) => throw new Exception("An error occurred while verifying the request.", ex);
+        private Task<IResponse> OnVerifyPaymentError (Exception ex) => throw new Exception("An error occurred while verifying the request.", ex);
         #endregion
 
         private void IsPaymentAPIReady ()

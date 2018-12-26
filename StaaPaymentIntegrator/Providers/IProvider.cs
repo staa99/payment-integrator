@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Staaworks.PaymentIntegrator.Utilities;
 
 namespace Staaworks.PaymentIntegrator.Providers
 {
@@ -7,5 +7,7 @@ namespace Staaworks.PaymentIntegrator.Providers
         string Name { get; }
 
         string SecretKey { get; }
+
+        APICaller Caller { get; }
     }
 }

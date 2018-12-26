@@ -5,7 +5,5 @@
         long Amount { get; }
 
         string Currency { get; }
-
-        string Message { get; }
     }
 }

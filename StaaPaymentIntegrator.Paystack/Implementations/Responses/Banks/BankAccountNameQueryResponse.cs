@@ -7,9 +7,6 @@ namespace Staaworks.PaymentIntegrator.Paystack.Implementations.Responses.Banks
 {
     public class BankAccountNameQueryResponse : BaseResponse, IBankAccountNameQueryResponse
     {
-        internal BankAccountNameQueryResponse () { }
-
-
         public string AccountName { get; private set; }
 
         public string AccountNumber { get; private set; }

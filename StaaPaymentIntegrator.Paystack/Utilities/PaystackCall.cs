@@ -7,54 +7,11 @@ using Staaworks.PaymentIntegrator.Utilities;
 
 namespace Staaworks.PaymentIntegrator.Paystack.Utilities
 {
-    internal class PaystackCall<IResponseType> : APICall<IResponseType> where IResponseType : IResponse
+    public class PaystackCaller : APICaller, IPaystackCall
     {
         public string SecretKey { get; private set; }
-        public static Task<IResponseType> Get (
-                                                    string url,
-                                                    string secretKey,
-                                                    Func<Exception, Task<IResponseType>> onError,
-                                                    Func<string, HttpStatusCode, Task<IResponseType>> onResult
-                                              ) =>
-            CallImmediately("GET", url, secretKey, onError, onResult);
 
-        public static Task<IResponseType> Post (
-                                                    string url,
-                                                    string secretKey,
-                                                    string rawData,
-                                                    Func<Exception, Task<IResponseType>> onError,
-                                                    Func<string, HttpStatusCode, Task<IResponseType>> onResult
-                                               ) =>
-            CallImmediately("POST", url, secretKey, onError, onResult, rawData);
-
-
-        public static async Task<IResponseType> CallImmediately (
-                                                                    string method,
-                                                                    string url,
-                                                                    string secretKey,
-                                                                    Func<Exception, Task<IResponseType>> onError,
-                                                                    Func<string, HttpStatusCode, Task<IResponseType>> onResult,
-                                                                    string rawData = null
-                                                                )
-        {
-            var call = new PaystackCall<IResponseType>
-            {
-                Method = method,
-                Url = url,
-                SecretKey = secretKey,
-                OnError = onError,
-                OnResult = onResult
-            };
-
-            if (rawData != null)
-            {
-                call.RawData = rawData;
-            }
-
-            return await call.Call();
-        }
-
-        public async override Task<IResponseType> Call ()
+        public async override Task<IResponse> Call ()
         {
             if (!OutputResponse(out var response, out var ex))
             {
@@ -80,7 +37,31 @@ namespace Staaworks.PaymentIntegrator.Paystack.Utilities
         }
 
 
-        private HttpWebRequest GetRequest ()
+        public override APICaller Initialize (
+                                string method,
+                                string url,
+                                string secretKey,
+                                Func<Exception, Task<IResponse>> onError,
+                                Func<string, HttpStatusCode, Task<IResponse>> onResult,
+                                string rawData = null
+                            )
+        {
+            Method = method;
+            Url = url;
+            SecretKey = secretKey;
+            OnError = onError;
+            OnResult = onResult;
+
+            if (rawData != null)
+            {
+                RawData = rawData;
+            }
+
+            return this;
+        }
+        
+
+        protected virtual HttpWebRequest GetRequest ()
         {
             var request = (HttpWebRequest)WebRequest.Create(Url);
             request.Method = Method;

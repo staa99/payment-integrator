@@ -8,8 +8,6 @@
 
         string Reference { get; }
 
-        string Message { get; }
-
         long Amount { get; }
 
         string Currency { get; }

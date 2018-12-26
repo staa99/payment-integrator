@@ -4,8 +4,6 @@
     {
         string Reference { get; }
 
-        string Message { get; }
-
         string AuthorizationUrl { get; }
     }
 }

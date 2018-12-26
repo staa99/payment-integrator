@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using Staaworks.PaymentIntegrator.Interfaces.Responses.Banks;
 using Staaworks.PaymentIntegrator.Paystack.Utilities;
@@ -10,17 +11,13 @@ namespace Staaworks.PaymentIntegrator.Paystack.Implementations.Responses.Banks
     /// </summary>
     public class BanksResponse : BaseResponse, IBanksResponse
     {
-        internal BanksResponse () { }
-
-
         public IBanksResponseItem[] Banks { get; private set; }
 
-        protected override async Task DoParse (JToken data, string status) => await Task.Run(() =>
+        protected override Task DoParse (JToken data, string status) => Task.Run(() =>
         {
+            var banks = new List<IBanksResponseItem>();
             if (data != null && status == nameof(APICallStatus.success))
             {
-                var i = 0;
-
                 foreach (var obj in data)
                 {
                     var it = new BanksResponseItem
@@ -33,10 +30,11 @@ namespace Staaworks.PaymentIntegrator.Paystack.Implementations.Responses.Banks
                         Slug = obj["slug"].ToString(),
                         Raw = obj.ToString()
                     };
-
-                    Banks[i++] = it;
+                    banks.Add(it);
                 }
             }
+
+            Banks = banks.ToArray();
         });
     }
 }

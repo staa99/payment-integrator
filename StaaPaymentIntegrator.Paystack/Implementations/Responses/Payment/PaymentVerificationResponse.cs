@@ -7,15 +7,11 @@ namespace Staaworks.PaymentIntegrator.Paystack.Implementations.Responses.Payment
 {
     public class PaymentVerificationResponse : BaseResponse, IPaymentVerificationResponse
     {
-        internal PaymentVerificationResponse () { }
-
         public bool Successful { get; private set; }
 
         public string AuthorizationReference { get; private set; }
 
         public string Reference { get; private set; }
-
-        public string Message { get; private set; }
 
         public long Amount { get; private set; }
 

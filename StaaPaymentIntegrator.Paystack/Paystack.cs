@@ -1,4 +1,6 @@
-﻿using Staaworks.PaymentIntegrator.Providers;
+﻿using Staaworks.PaymentIntegrator.Paystack.Utilities;
+using Staaworks.PaymentIntegrator.Providers;
+using Staaworks.PaymentIntegrator.Utilities;
 
 namespace Staaworks.PaymentIntegrator.Paystack
 {
@@ -7,6 +9,8 @@ namespace Staaworks.PaymentIntegrator.Paystack
         public string Name { get; protected set; }
 
         public string SecretKey { get; protected set; }
+
+        public APICaller Caller { get; set; } = new PaystackCaller();
 
         /// <summary>
         /// This initializes paystack with the secret key and optionally the provider name as represented in your system which defaults to "PAYSTACK".
