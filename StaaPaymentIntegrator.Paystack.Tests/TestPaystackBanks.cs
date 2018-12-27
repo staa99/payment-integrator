@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using StaaPaymentIntegrator.Paystack.Tests.TestUtilities;
+using Staaworks.PaymentIntegrator.Paystack.Implementations.Requests.Banks;
 using Staaworks.PaymentIntegrator.Paystack.Implementations.Responses.Banks;
 using static StaaPaymentIntegrator.Paystack.Tests.TestUtilities.TestConstants;
 
@@ -52,7 +53,7 @@ namespace StaaPaymentIntegrator.Paystack.Tests
             const string expectedAccountNumber = "0241904090";
             const string bankReference = "058";
 
-            var request = new Staaworks.PaymentIntegrator.Paystack.Implementations.Requests.Banks.BankAccountNameQueryRequest(expectedAccountNumber, bankReference);
+            var request = new BankAccountNameQueryRequest(expectedAccountNumber, bankReference);
 
             var response = await paystack.QueryAccountName(request);
 

@@ -39,7 +39,20 @@ namespace StaaPaymentIntegrator.Paystack.Tests.TestUtilities
                 case PaystackInitializePaymentUrl:
                     jsonResponse = PaystackInitializePaymentSuccessResponse;
                     break;
+
+                default:
+                    if (endpoint.StartsWith(PaystackVerifyPaymentUrl))
+                    {
+                        jsonResponse = PaystackVerificationSuccessResponse;
+                    }
+                    else
+                    {
+                        jsonResponse = PaystackBadRequestErrorResponse;
+                    }
+                    break;
             }
+
+
 
             return await SimpleResponseInitializer.Initialize<TResponse>(jsonResponse);
         }
@@ -47,12 +60,15 @@ namespace StaaPaymentIntegrator.Paystack.Tests.TestUtilities
 
         private async Task<TResponse> GetErrorResponse ()
         {
-            var jsonResponse = @"{
-                                    ""status"": false,
-                                    ""message"": ""An error occurred while performing the request""
-                                 }";
+            var jsonResponse = PaystackBadRequestErrorResponse; 
             return await SimpleResponseInitializer.Initialize<TResponse>(jsonResponse);
         }
+
+
+        private string PaystackBadRequestErrorResponse =>   @"{
+                                                                ""status"": false,
+                                                                ""message"": ""An error occurred while performing the request""
+                                                            }";
 
 
         private string PaystackGetBanksSuccessResponse => @"{
@@ -106,5 +122,81 @@ namespace StaaPaymentIntegrator.Paystack.Tests.TestUtilities
                                                                             ""reference"": ""7PVGX8MEk85tgeEpVDtD""
                                                                         }
                                                                     }";
+
+        private string PaystackVerificationSuccessResponse => @"{  
+                                                                    ""status"":true,
+                                                                    ""message"":""Verification successful"",
+                                                                    ""data"":
+                                                                    {
+                                                                        ""amount"":27000,
+                                                                        ""currency"":""NGN"",
+                                                                        ""transaction_date"":""2016-10-01T11:03:09.000Z"",
+                                                                        ""status"":""success"",
+                                                                        ""reference"":""DG4uishudoq90LD"",
+                                                                        ""domain"":""test"",
+                                                                        ""metadata"":0,
+                                                                        ""gateway_response"":""Successful"",
+                                                                        ""message"":null,
+                                                                        ""channel"":""card"",
+                                                                        ""ip_address"":""41.1.25.1"",
+                                                                        ""log"":
+                                                                        {
+                                                                            ""time_spent"":9,
+                                                                            ""attempts"":1,
+                                                                            ""authentication"":null,
+                                                                            ""errors"":0,
+                                                                            ""success"":true,
+                                                                            ""mobile"":false,
+                                                                            ""input"":[ ],
+                                                                            ""channel"":null,
+                                                                            ""history"":[  
+                                                                                {  
+                                                                                    ""type"":""input"",
+                                                                                    ""message"":""Filled these fields: card number, card expiry, card cvv"",
+                                                                                    ""time"":7
+                                                                                },
+                                                                                {  
+                                                                                    ""type"":""action"",
+                                                                                    ""message"":""Attempted to pay"",
+                                                                                    ""time"":7
+                                                                                },
+                                                                                {  
+                                                                                    ""type"":""success"",
+                                                                                    ""message"":""Successfully paid"",
+                                                                                    ""time"":8
+                                                                                },
+                                                                                {  
+                                                                                    ""type"":""close"",
+                                                                                    ""message"":""Page closed"",
+                                                                                    ""time"":9
+                                                                                }
+                                                                            ]
+                                                                        },
+                                                                        ""fees"":null,
+                                                                        ""authorization"":
+                                                                        {  
+                                                                            ""authorization_code"":""AUTH_8dfhjjdt"",
+                                                                            ""card_type"":""visa"",
+                                                                            ""last4"":""1381"",
+                                                                            ""exp_month"":""08"",
+                                                                            ""exp_year"":""2018"",
+                                                                            ""bin"":""412345"",
+                                                                            ""bank"":""TEST BANK"",
+                                                                            ""channel"":""card"",
+                                                                            ""signature"": ""SIG_idyuhgd87dUYSHO92D"",
+                                                                            ""reusable"":true,
+                                                                            ""country_code"":""NG""
+                                                                        },
+                                                                        ""customer"":
+                                                                        {  
+                                                                            ""id"":84312,
+                                                                            ""customer_code"":""CUS_hdhye17yj8qd2tx"",
+                                                                            ""first_name"":""BoJack"",
+                                                                            ""last_name"":""Horseman"",
+                                                                            ""email"":""bojack@horseman.com""
+                                                                        },
+                                                                        ""plan"":""PLN_0as2m9n02cl0kp6""
+                                                                    }
+                                                                }";
     }
 }
