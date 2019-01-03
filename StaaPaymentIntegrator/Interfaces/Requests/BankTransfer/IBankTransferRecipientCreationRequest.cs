@@ -6,7 +6,7 @@
         string AccountNumber { get; }
         string RecipientName { get; }
         string Currency { get; }
-        string Amount { get; }
+        long Amount { get; }
         string Description { get; }
     }
 }

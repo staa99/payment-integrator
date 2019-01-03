@@ -10,4 +10,8 @@
     <ProjectReference Include="..\StaaPaymentIntegrator\StaaPaymentIntegrator.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Implementations\Responses\BankTransfer\" />
+  </ItemGroup>
+
 </Project>

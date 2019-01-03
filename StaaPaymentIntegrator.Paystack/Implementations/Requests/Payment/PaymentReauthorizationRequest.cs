@@ -10,15 +10,15 @@ namespace Staaworks.PaymentIntegrator.Paystack.Implementations.Requests.Payment
 {
     public class PaymentReauthorizationRequest : IPaymentReauthorizationRequest
     {
-        public string Email { get; private set; }
+        public string Email { get; set; }
 
-        public string Reference { get; private set; }
+        public string Reference { get; set; }
 
-        public long Amount { get; private set; }
+        public long Amount { get; set; }
 
-        public string Currency { get; private set; }
+        public string Currency { get; set; }
 
-        public string AuthorizationReference { get; private set; }
+        public string AuthorizationReference { get; set; }
 
         public async Task<string> Serialize () => await Task.Run(() =>
         {

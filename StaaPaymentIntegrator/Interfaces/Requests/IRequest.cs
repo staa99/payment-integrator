@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Staaworks.PaymentIntegrator.Interfaces.Requests
 {
     public interface IRequest
     {
+        void Initialize (IDictionary<string, string> options);
         Task<string> Serialize ();
 
         /// <summary>

@@ -14,11 +14,13 @@ Major improvements with respect to code structure.
 Unit tests written for the Paystack implementation.</Description>
     <RepositoryUrl>https://github.com/staa99/payment-integrator</RepositoryUrl>
     <RepositoryType>Github</RepositoryType>
-    <PackageTags>payment; paystack; flutterwave;</PackageTags>
+    <PackageTags>payment; paystack; easy payment integration;</PackageTags>
     <PackageProjectUrl>https://github.com/staa99/payment-integrator</PackageProjectUrl>
     <Product>PaymentIntegrator</Product>
     <PackageLicenseUrl>https://www.gnu.org/licenses/gpl.txt</PackageLicenseUrl>
     <Version>1.1.0</Version>
+    <SignAssembly>false</SignAssembly>
+    <AssemblyOriginatorKeyFile />
   </PropertyGroup>
 
   <ItemGroup>

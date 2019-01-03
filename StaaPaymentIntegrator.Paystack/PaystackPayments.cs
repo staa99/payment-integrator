@@ -84,7 +84,7 @@ namespace Staaworks.PaymentIntegrator.Paystack
         #region Request Reauthorization
         public async Task<IPaymentReauthorizationResponse> RequestReauthorization (IPaymentReauthorizationRequest request)
         {
-            AssertReady(IsPaymentAPIReady);
+            AssertReady(IsPaymentAPIReady, request);
             return await Caller.Initialize("POST", PaymentReauthorizationUrl, SecretKey, OnReauthorizationError, OnReauthorizationResult, await request.Serialize()).Call() as IPaymentReauthorizationResponse;
         }
 

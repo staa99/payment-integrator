@@ -40,10 +40,30 @@ namespace StaaPaymentIntegrator.Paystack.Tests.TestUtilities
                     jsonResponse = PaystackInitializePaymentSuccessResponse;
                     break;
 
+                case PaystackRequestReauthorizationUrl:
+                    jsonResponse = PaystackRequestReauthorizationSuccessResponse;
+                    break;
+
+                case PaystackChargeAuthorizationSuccessUrl:
+                    jsonResponse = PaystackChargeAuthorizationSuccessResponse;
+                    break;
+
+                case PaystackChargeAuthorizationFailedUrl:
+                    jsonResponse = PaystackChargeAuthorizationFailedResponse;
+                    break;
+
+                case PaystackCheckAuthorizationUrl:
+                    jsonResponse = PaystackCheckAuthorizationSuccessResponse;
+                    break;
+
                 default:
-                    if (endpoint.StartsWith(PaystackVerifyPaymentUrl))
+                    if (endpoint.StartsWith(PaystackVerifyPaymentSuccessUrl))
                     {
                         jsonResponse = PaystackVerificationSuccessResponse;
+                    }
+                    else if (endpoint.StartsWith(PaystackVerifyPaymentFailedUrl))
+                    {
+                        jsonResponse = PaystackVerificationFailedResponse;
                     }
                     else
                     {
@@ -186,6 +206,180 @@ namespace StaaPaymentIntegrator.Paystack.Tests.TestUtilities
                                                                             ""signature"": ""SIG_idyuhgd87dUYSHO92D"",
                                                                             ""reusable"":true,
                                                                             ""country_code"":""NG""
+                                                                        },
+                                                                        ""customer"":
+                                                                        {  
+                                                                            ""id"":84312,
+                                                                            ""customer_code"":""CUS_hdhye17yj8qd2tx"",
+                                                                            ""first_name"":""BoJack"",
+                                                                            ""last_name"":""Horseman"",
+                                                                            ""email"":""bojack@horseman.com""
+                                                                        },
+                                                                        ""plan"":""PLN_0as2m9n02cl0kp6""
+                                                                    }
+                                                                }";
+
+        private string PaystackVerificationFailedResponse => @"{  
+                                                                   ""status"":true,
+                                                                   ""message"":""Verification successful"",
+                                                                   ""data"":{  
+                                                                      ""amount"":27000,
+                                                                      ""currency"":""NGN"",
+                                                                      ""transaction_date"":""2016-10-01T11:03:09.000Z"",
+                                                                      ""status"":""failed"",
+                                                                      ""reference"":""djfoidjkdkj41"",
+                                                                      ""domain"":""test"",
+                                                                      ""metadata"":0,
+                                                                      ""gateway_response"":""Insufficient Funds"",
+                                                                      ""message"":null,
+                                                                      ""channel"":""card"",
+                                                                      ""ip_address"":""41.1.25.1"",
+                                                                      ""log"":{  
+                                                                         ""time_spent"":9,
+                                                                         ""attempts"":1,
+                                                                         ""authentication"":null,
+                                                                         ""errors"":0,
+                                                                         ""success"":true,
+                                                                         ""mobile"":false,
+                                                                         ""input"":[ ],
+                                                                         ""channel"":null,
+                                                                         ""history"":[  
+                                                                            {  
+                                                                               ""type"":""input"",
+                                                                               ""message"":""Filled these fields: card number, card expiry, card cvv"",
+                                                                               ""time"":7
+                                                                            },
+                                                                            {  
+                                                                               ""type"":""action"",
+                                                                               ""message"":""Attempted to pay"",
+                                                                               ""time"":7
+                                                                            },
+                                                                            {  
+                                                                               ""type"":""close"",
+                                                                               ""message"":""Page closed"",
+                                                                               ""time"":9
+                                                                            }
+                                                                         ]
+                                                                      },
+                                                                      ""fees"":null,
+                                                                      ""authorization"":{  
+                                                                         ""authorization_code"":""AUTH_8dfhjjdt"",
+                                                                         ""card_type"":""visa"",
+                                                                         ""last4"":""1381"",
+                                                                         ""exp_month"":""08"",
+                                                                         ""exp_year"":""2018"",
+                                                                         ""bin"":""412345"",
+                                                                         ""bank"":""TEST BANK"",
+                                                                         ""channel"":""card"",
+                                                                         ""signature"": ""SIG_idyuhgd87dUYSHO92D"",
+                                                                         ""reusable"":true,
+                                                                         ""country_code"":""NG""
+                                                                      },
+                                                                      ""customer"":{  
+                                                                         ""id"":84312,
+                                                                         ""customer_code"":""CUS_hdhye17yj8qd2tx"",
+                                                                         ""first_name"":""BoJack"",
+                                                                         ""last_name"":""Horseman"",
+                                                                         ""email"":""bojack@horseman.com""
+                                                                      },
+                                                                      ""plan"":""""
+                                                                   }
+                                                                }";
+
+        private string PaystackRequestReauthorizationSuccessResponse => @" {
+                                                                        ""status"": true,
+                                                                        ""message"": ""Reauthorization initiated"",
+                                                                        ""data"":
+                                                                        {
+                                                                            ""reauthorization_url"": ""https://paystack.com/authorize/10001"",
+                                                                            ""reference"": ""1nv4LiD""
+                                                                        }
+                                                                    }";
+
+        private string PaystackCheckAuthorizationSuccessResponse => @" {
+                                                                    ""status"": true,
+                                                                    ""message"": ""Authorization is valid for this amount"",
+                                                                    ""data"":
+                                                                    {
+                                                                        ""amount"": ""400"",
+                                                                        ""currency"": ""NGN""
+                                                                    }
+                                                                }";
+
+        private string PaystackChargeAuthorizationSuccessResponse => @" {
+                                                                    ""status"": true,
+                                                                    ""message"": ""Charge attempted"",
+                                                                    ""data"": {
+                                                                        ""amount"": 500000,
+                                                                        ""currency"": ""NGN"",
+                                                                        ""transaction_date"": ""2016-10-01T14:29:53.000Z"",
+                                                                        ""status"": ""success"",
+                                                                        ""reference"": ""0bxco8lyc2aa0fq"",
+                                                                        ""domain"": ""live"",
+                                                                        ""metadata"": null,
+                                                                        ""gateway_response"": ""Successful"",
+                                                                        ""message"": null,
+                                                                        ""channel"": ""card"",
+                                                                        ""ip_address"": null,
+                                                                        ""log"": null,
+                                                                        ""fees"": null,
+                                                                        ""authorization"": {
+                                                                            ""authorization_code"": ""AUTH_5z72ux0koz"",
+                                                                            ""bin"": ""408408"",
+                                                                            ""last4"": ""4081"",
+                                                                            ""exp_month"": ""12"",
+                                                                            ""exp_year"": ""2020"",
+                                                                            ""channel"": ""card"",
+                                                                            ""card_type"": ""visa DEBIT"",
+                                                                            ""bank"": ""Test Bank"",
+                                                                            ""country_code"": ""NG"",
+                                                                            ""brand"": ""visa"",
+                                                                            ""reusable"": true,
+                                                                            ""signature"": ""SIG_ZdUx7Z5ujd75rt9OMTN4""
+                                                                        },
+                                                                        ""customer"": {
+                                                                            ""id"": 90831,
+                                                                            ""customer_code"": ""CUS_fxg9930u8pqeiu"",
+                                                                            ""first_name"": ""Bojack"",
+                                                                            ""last_name"": ""Horseman"",
+                                                                            ""email"": ""bojack@horsinaround.com""
+                                                                        },
+                                                                        ""plan"": 0
+                                                                    }
+                                                                }";
+
+        private string PaystackChargeAuthorizationFailedResponse => @"  {  
+                                                                    ""status"":true,
+                                                                    ""message"":""Charge Attempted"",
+                                                                    ""data"":
+                                                                    {  
+                                                                        ""amount"":27000,
+                                                                        ""currency"":""NGN"",
+                                                                        ""transaction_date"":""2016-10-01T11:03:09.000Z"",
+                                                                        ""status"":""failed"",
+                                                                        ""reference"":""DG4uishudoq90LD"",
+                                                                        ""domain"":""test"",
+                                                                        ""metadata"":0,
+                                                                        ""gateway_response"":""Insufficient Funds"",
+                                                                        ""message"":null,
+                                                                        ""channel"":""card"",
+                                                                        ""ip_address"":""41.1.25.1"",
+                                                                        ""log"":null,
+                                                                        ""fees"":null,
+                                                                        ""authorization"":
+                                                                        {  
+                                                                            ""authorization_code"": ""AUTH_5z72ux0koz"",
+                                                                            ""bin"": ""408408"",
+                                                                            ""last4"": ""4081"",
+                                                                            ""exp_month"": ""12"",
+                                                                            ""exp_year"": ""2020"",
+                                                                            ""channel"": ""card"",
+                                                                            ""card_type"": ""visa DEBIT"",
+                                                                            ""bank"": ""Test Bank"",
+                                                                            ""country_code"": ""NG"",
+                                                                            ""brand"": ""visa"",
+                                                                            ""reusable"": true,
+                                                                            ""signature"": ""SIG_ZdUx7Z5ujd75rt9OMTN4""
                                                                         },
                                                                         ""customer"":
                                                                         {  

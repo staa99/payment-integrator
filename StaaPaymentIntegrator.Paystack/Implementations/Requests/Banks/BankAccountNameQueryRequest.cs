@@ -1,23 +1,26 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Staaworks.PaymentIntegrator.Interfaces.Requests.Banks;
+using static Staaworks.PaymentIntegrator.Paystack.InitializationOptions;
 
 namespace Staaworks.PaymentIntegrator.Paystack.Implementations.Requests.Banks
 {
-    public class BankAccountNameQueryRequest : IBankAccountNameQueryRequest
+    public class BankAccountNameQueryRequest : BaseRequest, IBankAccountNameQueryRequest
     {
-        public BankAccountNameQueryRequest (string accountNumber, string bankReference)
+        public string AccountNumber { get; private set; }
+
+        public string BankReference { get; private set; }
+
+        protected override void InitializeWithOptions (IDictionary<string, string> options)
         {
-            AccountNumber = accountNumber ?? throw new ArgumentNullException(nameof(accountNumber));
-            BankReference = bankReference ?? throw new ArgumentNullException(nameof(bankReference));
+            BankReference = options[PAYSTACK_BANK_REFERENCE_KEY] ?? throw new ArgumentNullException(nameof(BankReference));
+            AccountNumber = options[PAYSTACK_BANK_ACCOUNT_NUMBER_KEY] ?? throw new ArgumentNullException(nameof(AccountNumber));
         }
 
-        public string AccountNumber { get; }
 
-        public string BankReference { get; }
-
-        public Task<string> Serialize () => Task.FromResult($"?account_number={AccountNumber}&bank_code={BankReference}");
-        public bool Validate (out Exception ex)
+        public override Task<string> Serialize () => Task.FromResult($"?account_number={AccountNumber}&bank_code={BankReference}");
+        public override bool Validate (out Exception ex)
         {
             if (AccountNumber == null)
             {

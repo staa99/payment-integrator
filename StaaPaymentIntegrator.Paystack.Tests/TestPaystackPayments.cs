@@ -18,9 +18,10 @@ namespace StaaPaymentIntegrator.Paystack.Tests
         [TestInitialize]
         public void Initialize ()
         {
-            paystack.InitializePayments(PaystackVerifyPaymentUrl, PaystackInitializePaymentUrl, PaystackChargeAuthorizationUrl, PaystackRequestReauthorizationUrl, PaystackCheckAuthorizationUrl);
-            paystackFakeKeys.InitializePayments(PaystackVerifyPaymentUrl, PaystackInitializePaymentUrl, PaystackChargeAuthorizationUrl, PaystackRequestReauthorizationUrl, PaystackCheckAuthorizationUrl);
+            paystack.InitializePayments(PaystackVerifyPaymentSuccessUrl, PaystackInitializePaymentUrl, PaystackChargeAuthorizationSuccessUrl, PaystackRequestReauthorizationUrl, PaystackCheckAuthorizationUrl);
+            paystackFakeKeys.InitializePayments(PaystackVerifyPaymentSuccessUrl, PaystackInitializePaymentUrl, PaystackChargeAuthorizationFailedUrl, PaystackRequestReauthorizationUrl, PaystackCheckAuthorizationUrl);
         }
+
 
         [TestMethod]
         public async Task IsInitializePaymentParsingCorrect ()
@@ -60,6 +61,30 @@ namespace StaaPaymentIntegrator.Paystack.Tests
             Assert.AreEqual(expectedStatus, response.Status);
             Assert.IsTrue(response.AuthorizationReference != null);
             Assert.IsTrue(response.Successful);
+        }
+
+
+        [TestMethod]
+        public async Task IsRequestReauthorizationParsingCorrect()
+        {
+            paystack.Caller = new TestPaystackCaller<PaymentReauthorizationResponse>();
+
+            const string expectedMessage = "Reauthorization initiated";
+            const string expectedStatus = "success";
+
+            var request = new PaymentReauthorizationRequest
+            {
+                Email = "ahmad@mail.co",
+                Amount = 50000,
+                AuthorizationReference = "500",
+                Reference = "pddp",
+                Currency = "NGN"
+            };
+
+            var response = await paystack.RequestReauthorization(request);
+            Assert.AreEqual(expectedMessage, response.Message);
+            Assert.AreEqual(expectedStatus, response.Status);
+            Assert.IsTrue(response.ReauthorizationUrl != null);
         }
     }
 }
