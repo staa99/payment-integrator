@@ -8,10 +8,8 @@ namespace Staaworks.PaymentIntegrator.Paystack.Implementations.Requests.Payment
 {
     public class PaymentVerificationRequest : BaseRequest, IPaymentVerificationRequest
     {
-        private PaymentVerificationRequest () { }
-
         public string Reference { get; private set; }
-        
+
 
         protected override void InitializeWithOptions (IDictionary<string, string> options)
         {

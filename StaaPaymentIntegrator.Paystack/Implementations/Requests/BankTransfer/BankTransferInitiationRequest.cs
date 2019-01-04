@@ -9,9 +9,6 @@ namespace Staaworks.PaymentIntegrator.Paystack.Implementations.Requests.BankTran
 {
     public class BankTransferInitiationRequest : BaseRequest, IBankTransferInitiationRequest
     {
-        private BankTransferInitiationRequest () { }
-
-
         public string Source { get; private set; } = "balance";
 
         public string Reference { get; private set; }

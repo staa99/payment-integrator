@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using StaaPaymentIntegrator.Paystack.Tests.TestUtilities;
 using Staaworks.PaymentIntegrator.Paystack.Implementations.Requests.Banks;
 using Staaworks.PaymentIntegrator.Paystack.Implementations.Responses.Banks;
 using static StaaPaymentIntegrator.Paystack.Tests.TestUtilities.TestConstants;
+using static Staaworks.PaymentIntegrator.Paystack.InitializationOptions;
 
 namespace StaaPaymentIntegrator.Paystack.Tests
 {
@@ -53,7 +55,12 @@ namespace StaaPaymentIntegrator.Paystack.Tests
             const string expectedAccountNumber = "0241904090";
             const string bankReference = "058";
 
-            var request = new BankAccountNameQueryRequest(expectedAccountNumber, bankReference);
+            var request = new BankAccountNameQueryRequest();
+            request.Initialize(new Dictionary<string, string>
+            {
+                [PAYSTACK_BANK_ACCOUNT_NUMBER_KEY] = expectedAccountNumber,
+                [PAYSTACK_BANK_REFERENCE_KEY] = bankReference
+            });
 
             var response = await paystack.QueryAccountName(request);
 

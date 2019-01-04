@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using StaaPaymentIntegrator.Paystack.Tests.TestUtilities;
 using Staaworks.PaymentIntegrator.Paystack.Implementations.Requests.Payment;
 using Staaworks.PaymentIntegrator.Paystack.Implementations.Responses.Payment;
 using static StaaPaymentIntegrator.Paystack.Tests.TestUtilities.TestConstants;
+using static Staaworks.PaymentIntegrator.Paystack.InitializationOptions;
 
 namespace StaaPaymentIntegrator.Paystack.Tests
 {
@@ -30,13 +32,15 @@ namespace StaaPaymentIntegrator.Paystack.Tests
             const string expectedMessage = "Authorization URL created";
             const string expectedStatus = "success";
 
-            var request = new PaymentInitializationRequest
+
+            var request = new PaymentInitializationRequest();
+            request.Initialize(new Dictionary<string, string>
             {
-                Amount = 50000,
-                Reference = "500",
-                Email = "a@b.c",
-                CallbackUrl = "https://callback.test.com/endpoint"
-            };
+                [PAYSTACK_AMOUNT_KEY] = 500000.ToString(),
+                [PAYSTACK_INITIALIZATION_REFERENCE_KEY] = "500",
+                [PAYSTACK_EMAIL_KEY] = "a@b.c",
+                [PAYSTACK_CALLBACK_URL_KEY] = "https://callback.test.com/endpoint"
+            });
 
             var response = await paystack.MakePayment(request);
 
@@ -53,7 +57,11 @@ namespace StaaPaymentIntegrator.Paystack.Tests
             const string expectedMessage = "Successful";
             const string expectedStatus = "success";
 
-            var request = new PaymentVerificationRequest("500");
+            var request = new PaymentVerificationRequest();
+            request.Initialize(new Dictionary<string, string>
+            {
+                [PAYSTACK_VERIFICATION_REFERENCE_KEY] = "500"
+            });
 
             var response = await paystack.VerifyPayment(request);
 

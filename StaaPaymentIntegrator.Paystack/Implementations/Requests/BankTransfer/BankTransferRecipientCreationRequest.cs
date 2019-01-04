@@ -9,8 +9,6 @@ namespace Staaworks.PaymentIntegrator.Paystack.Implementations.Requests.BankTran
 {
     public class BankTransferRecipientCreationRequest : BaseRequest, IBankTransferRecipientCreationRequest
     {
-        private BankTransferRecipientCreationRequest () { }
-
         public string BankReference { get; private set; }
 
         public string AccountNumber { get; private set; }

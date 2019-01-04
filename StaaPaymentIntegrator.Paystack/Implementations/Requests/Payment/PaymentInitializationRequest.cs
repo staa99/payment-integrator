@@ -10,8 +10,6 @@ namespace Staaworks.PaymentIntegrator.Paystack.Implementations.Requests.Payment
 {
     public class PaymentInitializationRequest : BaseRequest, IPaymentInitializationRequest
     {
-        private PaymentInitializationRequest () { }
-
         public string Email { get; private set; }
 
         public string Reference { get; private set; }

@@ -10,8 +10,6 @@ namespace Staaworks.PaymentIntegrator.Paystack.Implementations.Requests.Payment
 {
     public class PaymentCheckAuthorizationRequest : BaseRequest, IPaymentCheckAuthorizationRequest
     {
-        private PaymentCheckAuthorizationRequest () { }
-
         public string AuthorizationReference { get; private set; }
 
         public long Amount { get; private set; }

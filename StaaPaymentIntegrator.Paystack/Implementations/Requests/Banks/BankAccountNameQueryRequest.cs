@@ -8,8 +8,6 @@ namespace Staaworks.PaymentIntegrator.Paystack.Implementations.Requests.Banks
 {
     public class BankAccountNameQueryRequest : BaseRequest, IBankAccountNameQueryRequest
     {
-        private BankAccountNameQueryRequest () { }
-
         public string AccountNumber { get; private set; }
 
         public string BankReference { get; private set; }
