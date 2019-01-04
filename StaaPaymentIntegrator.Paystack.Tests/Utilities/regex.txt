@@ -1,0 +1,2 @@
+﻿find: (\w+) = options\[(\w+)\];
+replacement: {\nif (options.TryGetValue($2, out var $1))\n{\n$1= $1;\n}\n}

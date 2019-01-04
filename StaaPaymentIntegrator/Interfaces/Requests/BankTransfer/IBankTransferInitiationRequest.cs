@@ -3,7 +3,7 @@
     public interface IBankTransferInitiationRequest : IRequest
     {
         string Reference { get; }
-        string Amount { get; }
+        long Amount { get; }
         string Currency { get; }
         string RecipientReference { get; }
     }

@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using Staaworks.PaymentIntegrator.Interfaces.Requests.Payment;
 using Staaworks.PaymentIntegrator.Paystack.Utilities;
+using static Staaworks.PaymentIntegrator.Paystack.InitializationOptions;
 
 namespace Staaworks.PaymentIntegrator.Paystack.Implementations.Requests.Payment
 {
-    public class PaymentReauthorizationRequest : IPaymentReauthorizationRequest
+    public class PaymentReauthorizationRequest : BaseRequest, IPaymentReauthorizationRequest
     {
+        private PaymentReauthorizationRequest () { }
+
+
         public string Email { get; set; }
 
         public string Reference { get; set; }
@@ -20,7 +23,24 @@ namespace Staaworks.PaymentIntegrator.Paystack.Implementations.Requests.Payment
 
         public string AuthorizationReference { get; set; }
 
-        public async Task<string> Serialize () => await Task.Run(() =>
+        protected override void InitializeWithOptions (IDictionary<string, string> options)
+        {
+            Email = options[PAYSTACK_EMAIL_KEY] ?? throw new ArgumentNullException(nameof(Email));
+            Amount = Convert.ToInt64(options[PAYSTACK_AMOUNT_KEY] ?? throw new ArgumentNullException(nameof(Amount)));
+            AuthorizationReference = options[PAYSTACK_AUTHORIZATION_REFERENCE_KEY] ?? throw new ArgumentNullException(nameof(AuthorizationReference));
+        
+            if (options.TryGetValue(PAYSTACK_CURRENCY_KEY, out var currency))
+            {
+                Currency = currency;
+            }
+
+            if (options.TryGetValue(PAYSTACK_REAUTHORIZATION_REFERENCE_KEY, out var reference))
+            {
+                Reference = reference;
+            }
+        }
+
+        public override async Task<string> Serialize () => await Task.Run(() =>
         {
             var obj = new JObject();
             if (Reference != null)
@@ -41,7 +61,7 @@ namespace Staaworks.PaymentIntegrator.Paystack.Implementations.Requests.Payment
             return obj.ToString();
         });
 
-        public bool Validate (out Exception ex)
+        public override bool Validate (out Exception ex)
         {
             if (Amount <= 0)
             {

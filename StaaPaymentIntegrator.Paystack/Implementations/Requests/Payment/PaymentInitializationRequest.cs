@@ -1,24 +1,44 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using Staaworks.PaymentIntegrator.Interfaces.Requests.Payment;
 using Staaworks.PaymentIntegrator.Paystack.Utilities;
+using static Staaworks.PaymentIntegrator.Paystack.InitializationOptions;
 
 namespace Staaworks.PaymentIntegrator.Paystack.Implementations.Requests.Payment
 {
-    public class PaymentInitializationRequest : IPaymentInitializationRequest
+    public class PaymentInitializationRequest : BaseRequest, IPaymentInitializationRequest
     {
-        public string Email { get; set; }
+        private PaymentInitializationRequest () { }
 
-        public string Reference { get; set; }
+        public string Email { get; private set; }
 
-        public string Currency { get; }
+        public string Reference { get; private set; }
 
-        public long Amount { get; set; }
+        public string Currency { get; private set; }
 
-        public string CallbackUrl { get; set; }
+        public long Amount { get; private set; }
 
-        public Task<string> Serialize () => Task.Run(() =>
+        public string CallbackUrl { get; private set; }
+
+        protected override void InitializeWithOptions (IDictionary<string, string> options)
+        {
+            Email = options[PAYSTACK_EMAIL_KEY] ?? throw new ArgumentNullException(nameof(Email));
+            Amount = Convert.ToInt64(options[PAYSTACK_AMOUNT_KEY] ?? throw new ArgumentNullException(nameof(Amount)));
+
+            if (options.TryGetValue(PAYSTACK_CURRENCY_KEY, out var currency))
+            {
+                Currency = currency;
+            }
+
+            if (options.TryGetValue(PAYSTACK_INITIALIZATION_REFERENCE_KEY, out var reference))
+            {
+                Reference = reference;
+            }
+        }
+
+        public override Task<string> Serialize () => Task.Run(() =>
         {
             var obj = new JObject();
             if (Reference != null)
@@ -37,7 +57,7 @@ namespace Staaworks.PaymentIntegrator.Paystack.Implementations.Requests.Payment
             return obj.ToString();
         });
 
-        public bool Validate (out Exception ex)
+        public override bool Validate (out Exception ex)
         {
             if (Amount <= 0)
             {

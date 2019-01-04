@@ -1,21 +1,35 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Staaworks.PaymentIntegrator.Interfaces.Requests.Payment;
+using static Staaworks.PaymentIntegrator.Paystack.InitializationOptions;
 
 namespace Staaworks.PaymentIntegrator.Paystack.Implementations.Requests.Payment
 {
-    public class PaymentVerificationRequest : IPaymentVerificationRequest
+    public class PaymentVerificationRequest : BaseRequest, IPaymentVerificationRequest
     {
-        public PaymentVerificationRequest (string reference)
+        private PaymentVerificationRequest () { }
+
+        public string Reference { get; private set; }
+        
+
+        protected override void InitializeWithOptions (IDictionary<string, string> options)
         {
-            Reference = reference ?? throw new ArgumentNullException(nameof(reference));
+            if (options.TryGetValue(PAYSTACK_VERIFICATION_REFERENCE_KEY, out var reference))
+            {
+                Reference = reference;
+            }
         }
 
-        public string Reference { get; }
-
-        public Task<string> Serialize () => Task.FromResult($"/{Reference}");
-        public bool Validate (out Exception ex)
+        public override Task<string> Serialize () => Task.FromResult($"/{Reference}");
+        public override bool Validate (out Exception ex)
         {
+            if (Reference == null)
+            {
+                ex = new ArgumentNullException(nameof(Reference));
+                return false;
+            }
+
             ex = null;
             return true;
         }
