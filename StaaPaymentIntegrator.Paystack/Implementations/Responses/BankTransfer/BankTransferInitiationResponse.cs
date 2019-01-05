@@ -6,5 +6,6 @@ namespace Staaworks.PaymentIntegrator.Paystack.Implementations.Responses.BankTra
 {
     public class BankTransferInitiationResponse
     {
+        
     }
 }
