@@ -1,11 +1,124 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using Microsoft.Extensions.DependencyInjection;
+using Staaworks.PaymentIntegrator.Providers;
 
 namespace Staaworks.PaymentIntegrator.Paystack.Extensions
 {
     public static class RegisterServices
     {
-        
+        public static IServiceCollection AddPaystack (this IServiceCollection services)
+        {
+            services.AddPaystackEmpty();
+            services.AddPaystackForMiscBankOps();
+            services.AddPaystackForPayments();
+            //services.AddPaystackForTransfers();
+            //services.AddPaystackForSubscriptions();
+            return services;
+        }
+
+        public static IServiceCollection AddPaystackEmpty (this IServiceCollection services) => services.AddTransient<IProvider>(s =>
+        {
+            try
+            {
+                var optionsProvider = s.GetService<IPaystackInitializationOptionsProvider>();
+                
+                if (optionsProvider.ProviderName != null)
+                {
+                    return new Paystack(optionsProvider.SecretKey, optionsProvider.ProviderName);
+                }
+                else
+                {
+                    return new Paystack(optionsProvider.SecretKey);
+                }
+            }
+            catch
+            {
+                throw new InvalidOperationException("You must register an `IPaystackInitializationOptionsProvider` before using the `AddPaystackEmpty` extension");
+            }
+        });
+
+        public static IServiceCollection AddPaystackForMiscBankOps (this IServiceCollection services) => services.AddTransient<IBanksProvider>(s =>
+        {
+            try
+            {
+                var optionsProvider = s.GetService<IPaystackInitializationOptionsProvider>();
+                var paystack = s.GetService<Paystack>();
+
+                paystack.InitializeBanks(optionsProvider.BanksListUrl, optionsProvider.BankAccountNameQueryUrl);
+                return paystack;
+            }
+            catch
+            {
+                throw new InvalidOperationException("You must register an `IPaystackInitializationOptionsProvider` and an `IProvider` with `Paystack` before using the `AddPaystackForMiscBankOps` extension");
+            }
+        });
+
+        public static IServiceCollection AddPaystackForPayments(this IServiceCollection services) => services.AddTransient<IPaymentProvider>(s =>
+        {
+            try
+            {
+                var optionsProvider = s.GetService<IPaystackInitializationOptionsProvider>();
+                var paystack = s.GetService<Paystack>();
+
+                paystack.InitializePayments (
+                    optionsProvider.PaymentVerificationUrl,
+                    optionsProvider.PaymentInitializationUrl,
+                    optionsProvider.PaymentChargeAuthorizationUrl,
+                    optionsProvider.PaymentReauthorizationUrl,
+                    optionsProvider.PaymentCheckAuthorizationUrl);
+
+                return paystack;
+            }
+            catch
+            {
+                throw new InvalidOperationException("You must register an `IPaystackInitializationOptionsProvider` and an `IProvider` with `Paystack` before using the `AddPaystackForPayments` extension");
+            }
+        });
+
+
+        /*public static IServiceCollection AddPaystackForTransfers(this IServiceCollection services) => services.AddTransient<ITransferProvider>(s =>
+        {
+            try
+            {
+                var optionsProvider = s.GetService<IPaystackInitializationOptionsProvider>();
+                var paystack = s.GetService<Paystack>();
+
+                paystack.InitializePayments(
+                    optionsProvider.PaymentVerificationUrl,
+                    optionsProvider.PaymentInitializationUrl,
+                    optionsProvider.PaymentChargeAuthorizationUrl,
+                    optionsProvider.PaymentReauthorizationUrl,
+                    optionsProvider.PaymentCheckAuthorizationUrl);
+
+                return paystack;
+            }
+            catch
+            {
+                throw new InvalidOperationException("You must register an `IPaystackInitializationOptionsProvider` and an `IProvider` with `Paystack` before using the `AddPaystackForTransfers` extension");
+            }
+        });*/
+
+        /*public static IServiceCollection AddPaystackForSubscriptions(this IServiceCollection services) => services.AddTransient<ISubscriptionProvider>(s =>
+        {
+            try
+            {
+                var optionsProvider = s.GetService<IPaystackInitializationOptionsProvider>();
+                var paystack = s.GetService<Paystack>();
+
+                paystack.InitializePayments(
+                    optionsProvider.PaymentVerificationUrl,
+                    optionsProvider.PaymentInitializationUrl,
+                    optionsProvider.PaymentChargeAuthorizationUrl,
+                    optionsProvider.PaymentReauthorizationUrl,
+                    optionsProvider.PaymentCheckAuthorizationUrl);
+
+                return paystack;
+            }
+            catch
+            {
+                throw new InvalidOperationException("You must register an `IPaystackInitializationOptionsProvider` and an `IProvider` with `Paystack` before using the `AddPaystackForSubscriptions` extension");
+            }
+        });
+        */
     }
 }

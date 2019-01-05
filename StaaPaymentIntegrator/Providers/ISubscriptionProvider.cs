@@ -7,6 +7,11 @@ namespace Staaworks.PaymentIntegrator.Providers
     public interface ISubscriptionProvider : IProvider
     {
         string SubscriptionInitializationUrl { get; }
+        string SubscriptionActivationUrl { get; }
+        string SubscriptionDeactivationUrl { get; }
+        string SubscriptionPlanCreationUrl { get; }
+        string SubscriptionPlanQueryUrl { get; }
+        string SubscriptionQueryUrl { get; }
 
         Task<ISubscriptionInitializationResponse> InitializeSubscription (ISubscriptionInitializationRequest request);
 
