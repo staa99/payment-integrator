@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StaaPaymentIntegrator", "St
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StaaPaymentIntegrator.Paystack", "StaaPaymentIntegrator.Paystack\StaaPaymentIntegrator.Paystack.csproj", "{7F6C7377-05E1-4FFA-9AAF-904B4194B842}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StaaPaymentIntegrator.Paystack.Tests", "StaaPaymentIntegrator.Paystack.Tests\StaaPaymentIntegrator.Paystack.Tests.csproj", "{1D080428-A629-40E0-9AAC-E21276B686DC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StaaPaymentIntegrator.Paystack.Tests", "StaaPaymentIntegrator.Paystack.Tests\StaaPaymentIntegrator.Paystack.Tests.csproj", "{1D080428-A629-40E0-9AAC-E21276B686DC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

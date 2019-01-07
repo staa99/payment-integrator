@@ -26,11 +26,11 @@ namespace Staaworks.PaymentIntegrator.Paystack
 
         public void InitializePayments (string verificationUrl, string initializationUrl, string chargeAuthorizationUrl, string reauthorizationUrl, string checkAuthorizationUrl)
         {
-            PaymentVerificationUrl = verificationUrl;
-            PaymentInitializationUrl = initializationUrl;
-            PaymentChargeAuthorizationUrl = chargeAuthorizationUrl;
-            PaymentReauthorizationUrl = reauthorizationUrl;
-            PaymentCheckAuthorizationUrl = checkAuthorizationUrl;
+            PaymentVerificationUrl = verificationUrl ?? throw new ArgumentNullException(nameof(verificationUrl), "The URL for payment verification must be provided to use the payment APIs");
+            PaymentInitializationUrl = initializationUrl ?? throw new ArgumentNullException(nameof(initializationUrl), "The URL for payment initialization must be provided to use the payment APIs");
+            PaymentChargeAuthorizationUrl = chargeAuthorizationUrl ?? throw new ArgumentNullException(nameof(chargeAuthorizationUrl), "The URL for payment charge authorization must be provided to use the payment APIs");
+            PaymentReauthorizationUrl = reauthorizationUrl ?? throw new ArgumentNullException(nameof(reauthorizationUrl), "The URL for payment reauthorization request must be provided to use the payment APIs");
+            PaymentCheckAuthorizationUrl = checkAuthorizationUrl ?? throw new ArgumentNullException(nameof(checkAuthorizationUrl), "The URL for payment authorization checks must be provided to use the payment APIs");
         }
 
         #region Charge Authorization

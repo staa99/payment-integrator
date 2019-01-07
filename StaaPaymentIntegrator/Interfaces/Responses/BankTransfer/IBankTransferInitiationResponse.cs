@@ -2,9 +2,8 @@
 {
     public interface IBankTransferInitiationResponse : IResponse
     {
-        string Reference { get; }
-        string Amount { get; }
+        string TransferReference { get; }
+        long Amount { get; }
         string Currency { get; }
-        string RecipientReference { get; }
     }
 }
