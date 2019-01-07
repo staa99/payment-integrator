@@ -1,26 +1,33 @@
 ﻿using System;
 using Microsoft.Extensions.DependencyInjection;
+using Staaworks.PaymentIntegrator.Configuration;
 using Staaworks.PaymentIntegrator.Providers;
 
 namespace Staaworks.PaymentIntegrator.Paystack.Extensions
 {
     public static class RegisterServices
     {
-        public static IServiceCollection AddPaystack (this IServiceCollection services)
+        public static IServiceCollection AddPaystack (this IServiceCollection services, IPaystackConfiguration configuration)
         {
+            services.AddPaystackConfiguration(configuration);
             services.AddPaystackEmpty();
             services.AddPaystackForMiscBankOps();
             services.AddPaystackForPayments();
-            //services.AddPaystackForTransfers();
+            services.AddPaystackForTransfers();
             //services.AddPaystackForSubscriptions();
             return services;
         }
+
+        public static IServiceCollection AddPaystackConfiguration (this IServiceCollection services, IPaystackConfiguration configuration) => services.AddSingleton<IPaymentProviderConfiguration>(s =>
+        {
+            return configuration;
+        });
 
         public static IServiceCollection AddPaystackEmpty (this IServiceCollection services) => services.AddTransient<IProvider>(s =>
         {
             try
             {
-                var optionsProvider = s.GetService<IPaystackInitializationOptionsProvider>();
+                var optionsProvider = s.GetService<IPaystackConfiguration>();
                 
                 if (optionsProvider.ProviderName != null)
                 {
@@ -33,7 +40,7 @@ namespace Staaworks.PaymentIntegrator.Paystack.Extensions
             }
             catch
             {
-                throw new InvalidOperationException("You must register an `IPaystackInitializationOptionsProvider` before using the `AddPaystackEmpty` extension");
+                throw new InvalidOperationException("You must call `AddPaystackConfiguration` before using the `AddPaystackEmpty` extension");
             }
         });
 
@@ -41,7 +48,7 @@ namespace Staaworks.PaymentIntegrator.Paystack.Extensions
         {
             try
             {
-                var optionsProvider = s.GetService<IPaystackInitializationOptionsProvider>();
+                var optionsProvider = s.GetService<IPaystackConfiguration>();
                 var paystack = s.GetService<Paystack>();
 
                 paystack.InitializeBanks(optionsProvider.BanksListUrl, optionsProvider.BankAccountNameQueryUrl);
@@ -49,7 +56,7 @@ namespace Staaworks.PaymentIntegrator.Paystack.Extensions
             }
             catch
             {
-                throw new InvalidOperationException("You must register an `IPaystackInitializationOptionsProvider` and an `IProvider` with `Paystack` before using the `AddPaystackForMiscBankOps` extension");
+                throw new InvalidOperationException("You must call `AddPaystackConfiguration` and register an `IProvider` with `Paystack` before using the `AddPaystackForMiscBankOps` extension");
             }
         });
 
@@ -57,7 +64,7 @@ namespace Staaworks.PaymentIntegrator.Paystack.Extensions
         {
             try
             {
-                var optionsProvider = s.GetService<IPaystackInitializationOptionsProvider>();
+                var optionsProvider = s.GetService<IPaystackConfiguration>();
                 var paystack = s.GetService<Paystack>();
 
                 paystack.InitializePayments (
@@ -71,32 +78,32 @@ namespace Staaworks.PaymentIntegrator.Paystack.Extensions
             }
             catch
             {
-                throw new InvalidOperationException("You must register an `IPaystackInitializationOptionsProvider` and an `IProvider` with `Paystack` before using the `AddPaystackForPayments` extension");
+                throw new InvalidOperationException("You must call `AddPaystackConfiguration` and register an `IProvider` with `Paystack` before using the `AddPaystackForPayments` extension");
             }
         });
 
 
-        /*public static IServiceCollection AddPaystackForTransfers(this IServiceCollection services) => services.AddTransient<ITransferProvider>(s =>
-        {
-            try
-            {
-                var optionsProvider = s.GetService<IPaystackInitializationOptionsProvider>();
-                var paystack = s.GetService<Paystack>();
+        public static IServiceCollection AddPaystackForTransfers (this IServiceCollection services) => services.AddTransient<ITransferProvider>(s =>
+         {
+             try
+             {
+                 var optionsProvider = s.GetService<IPaystackConfiguration>();
+                 var paystack = s.GetService<Paystack>();
 
-                paystack.InitializePayments(
-                    optionsProvider.PaymentVerificationUrl,
-                    optionsProvider.PaymentInitializationUrl,
-                    optionsProvider.PaymentChargeAuthorizationUrl,
-                    optionsProvider.PaymentReauthorizationUrl,
-                    optionsProvider.PaymentCheckAuthorizationUrl);
+                 paystack.InitializePayments(
+                     optionsProvider.PaymentVerificationUrl,
+                     optionsProvider.PaymentInitializationUrl,
+                     optionsProvider.PaymentChargeAuthorizationUrl,
+                     optionsProvider.PaymentReauthorizationUrl,
+                     optionsProvider.PaymentCheckAuthorizationUrl);
 
-                return paystack;
-            }
-            catch
-            {
-                throw new InvalidOperationException("You must register an `IPaystackInitializationOptionsProvider` and an `IProvider` with `Paystack` before using the `AddPaystackForTransfers` extension");
-            }
-        });*/
+                 return paystack;
+             }
+             catch
+             {
+                 throw new InvalidOperationException("You must call `AddPaystackConfiguration` and register an `IProvider` with `Paystack` before using the `AddPaystackForTransfers` extension");
+             }
+         });
 
         /*public static IServiceCollection AddPaystackForSubscriptions(this IServiceCollection services) => services.AddTransient<ISubscriptionProvider>(s =>
         {
@@ -116,7 +123,7 @@ namespace Staaworks.PaymentIntegrator.Paystack.Extensions
             }
             catch
             {
-                throw new InvalidOperationException("You must register an `IPaystackInitializationOptionsProvider` and an `IProvider` with `Paystack` before using the `AddPaystackForSubscriptions` extension");
+                throw new InvalidOperationException("You must call `AddPaystackConfiguration` and register an `IProvider` with `Paystack` before using the `AddPaystackForSubscriptions` extension");
             }
         });
         */

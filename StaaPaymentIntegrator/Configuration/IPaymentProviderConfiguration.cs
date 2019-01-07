@@ -1,13 +1,9 @@
 ﻿namespace Staaworks.PaymentIntegrator.Configuration
 {
-    internal interface IPaymentProviderConfiguration
+    public interface IPaymentProviderConfiguration
     {
-        string Name { get; }
-
-        string BanksListUrl { get; }
+        string ProviderName { get; }
 
         string SecretKey { get; }
-
-        string CallbackUrl { get; }
     }
 }

@@ -1,10 +1,9 @@
-﻿namespace Staaworks.PaymentIntegrator.Paystack.Extensions
-{
-    public interface IPaystackInitializationOptionsProvider
-    {
-        string SecretKey { get; }
-        string ProviderName { get; }
+﻿using Staaworks.PaymentIntegrator.Configuration;
 
+namespace Staaworks.PaymentIntegrator.Paystack.Extensions
+{
+    public interface IPaystackConfiguration : IPaymentProviderConfiguration
+    {
         string BanksListUrl { get; }
         string BankAccountNameQueryUrl { get; }
 
