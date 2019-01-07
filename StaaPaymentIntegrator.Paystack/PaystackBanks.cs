@@ -35,10 +35,8 @@ namespace Staaworks.PaymentIntegrator.Paystack
             return await Caller.Initialize("GET", BanksListUrl, SecretKey, OnGetBanksError, OnGetBanksResult).Call() as IBanksResponse;
         }
 
-        private async Task<IResponse> OnGetBanksResult (string json, HttpStatusCode statusCode)
-        {
-            return await SimpleResponseInitializer.Initialize<BanksResponse>(json);
-        }
+        private async Task<IResponse> OnGetBanksResult (string json, HttpStatusCode statusCode) =>
+            await SimpleResponseInitializer.Initialize<BanksResponse>(json);
 
         private Task<IResponse> OnGetBanksError (Exception ex) => throw new Exception("An error occurred while getting banks from the Paystack API", ex);
         #endregion
@@ -50,10 +48,8 @@ namespace Staaworks.PaymentIntegrator.Paystack
             return await Caller.Initialize("GET", BankAccountNameQueryUrl + request.Serialize().Result, SecretKey, OnQueryAccountNameError, OnQueryAccountNameResult).Call() as IBankAccountNameQueryResponse;
         }
 
-        private async Task<IResponse> OnQueryAccountNameResult (string json, HttpStatusCode statusCode)
-        {
-            return await SimpleResponseInitializer.Initialize<BankAccountNameQueryResponse>(json);
-        }
+        private async Task<IResponse> OnQueryAccountNameResult (string json, HttpStatusCode statusCode) =>
+            await SimpleResponseInitializer.Initialize<BankAccountNameQueryResponse>(json);
 
         private Task<IResponse> OnQueryAccountNameError (Exception ex) => throw new Exception("An error occurred while querying the account name from the Paystack API", ex);
         #endregion
