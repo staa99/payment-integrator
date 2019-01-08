@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/staa99/payment-integrator.svg?branch=master)](https://travis-ci.com/staa99/payment-integrator)
+
 # Payment Integrator
 
 This repository is intended for use by developers and organizations to solve their payment integration needs. The base is an abstraction library that can be implemented to provide support for different payment providers.
