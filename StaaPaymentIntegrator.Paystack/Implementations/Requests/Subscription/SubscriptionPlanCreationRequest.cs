@@ -74,7 +74,7 @@ namespace Staaworks.PaymentIntegrator.Paystack.Implementations.Requests.Subscrip
         }
         protected override void InitializeWithOptions (IDictionary<string, string> options)
         {
-            Reference = options[PAYSTACK_PLAN_NAME_KEY] ?? throw new ArgumentNullException(nameof(Reference)));
+            Reference = options[PAYSTACK_PLAN_NAME_KEY] ?? throw new ArgumentNullException(nameof(Reference));
             Amount = Convert.ToInt64(options[PAYSTACK_AMOUNT_KEY] ?? throw new ArgumentNullException(nameof(Amount)));
 
             if (options.TryGetValue(PAYSTACK_CURRENCY_KEY, out var currency))
