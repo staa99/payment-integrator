@@ -14,7 +14,7 @@ namespace Staaworks.PaymentIntegrator.Paystack.Implementations.Requests.Payment
 
         public string Reference { get; private set; }
 
-        public string Currency { get; private set; }
+        public string Currency { get; private set; } = "NGN";
 
         public long Amount { get; private set; }
 

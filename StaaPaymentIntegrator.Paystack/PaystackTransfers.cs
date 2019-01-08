@@ -19,8 +19,8 @@ namespace Staaworks.PaymentIntegrator.Paystack
 
         public void InitializeTransfers (string recipientCreationUrl, string initiationUrl)
         {
-            BankTransferRecipientCreationUrl = recipientCreationUrl ?? throw new ArgumentNullException(nameof(recipientCreationUrl), "The URL for transfer recipient creation must be provided to use the payment APIs");
-            BankTransferInitiationUrl = initiationUrl ?? throw new ArgumentNullException(nameof(initiationUrl), "The URL for transfer initiation must be provided to use the payment APIs");
+            BankTransferRecipientCreationUrl = recipientCreationUrl ?? throw new ArgumentNullException(nameof(recipientCreationUrl), "The URL for transfer recipient creation must be provided to use the transfer APIs");
+            BankTransferInitiationUrl = initiationUrl ?? throw new ArgumentNullException(nameof(initiationUrl), "The URL for transfer initiation must be provided to use the transfer APIs");
         }
 
 

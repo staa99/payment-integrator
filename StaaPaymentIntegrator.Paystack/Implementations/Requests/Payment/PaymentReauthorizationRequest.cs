@@ -39,21 +39,18 @@ namespace Staaworks.PaymentIntegrator.Paystack.Implementations.Requests.Payment
 
         public override async Task<string> Serialize () => await Task.Run(() =>
         {
-            var obj = new JObject();
+            var obj = new JObject
+            {
+                ["authorization_code"] = AuthorizationReference,
+                ["currency"] = Currency,
+                ["email"] = Email,
+                ["amount"] = Amount
+            };
+
             if (Reference != null)
             {
                 obj["reference"] = Reference;
             }
-
-            if (Currency != null)
-            {
-                obj["currency"] = Currency;
-            }
-
-            obj["authorization_code"] = AuthorizationReference;
-
-            obj["email"] = Email;
-            obj["amount"] = Amount;
 
             return obj.ToString();
         });

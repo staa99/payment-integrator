@@ -10,32 +10,53 @@ namespace Staaworks.PaymentIntegrator.Paystack
 {
     public partial class Paystack : ISubscriptionProvider
     {
-        public string SubscriptionInitializationUrl => throw new NotImplementedException();
-
-        public string SubscriptionActivationUrl => throw new NotImplementedException();
-
-        public string SubscriptionDeactivationUrl => throw new NotImplementedException();
-
-        public string SubscriptionPlanCreationUrl => throw new NotImplementedException();
-
-        public string SubscriptionPlanQueryUrl => throw new NotImplementedException();
-
-        public string SubscriptionQueryUrl => throw new NotImplementedException();
+        public string SubscriptionInitializationUrl { get; protected set; }
+        public string SubscriptionActivationUrl { get; protected set; }
+        public string SubscriptionDeactivationUrl { get; protected set; }
+        public string SubscriptionPlanCreationUrl { get; protected set; }
+        public string SubscriptionPlanQueryUrl { get; protected set; }
+        public string SubscriptionQueryUrl { get; protected set; }
 
 
-        public void InitializeSubscriptions (string recipientCreationUrl, string initiationUrl)
+        public void InitializeSubscriptions (string initializationUrl, string activationUrl, string deactivationUrl, string planCreationUrl, string planQueryUrl, string queryUrl)
         {
-            BankTransferRecipientCreationUrl = recipientCreationUrl;
-            BankTransferInitiationUrl = initiationUrl;
+            SubscriptionInitializationUrl = initializationUrl ?? throw new ArgumentNullException(nameof(initializationUrl), "The URL for subscription initialization must be provided to use the subscription APIs");
+            SubscriptionActivationUrl = activationUrl ?? throw new ArgumentNullException(nameof(activationUrl), "The URL for subscription activation must be provided to use the subscription APIs");
+            SubscriptionDeactivationUrl = deactivationUrl ?? throw new ArgumentNullException(nameof(deactivationUrl), "The URL for subscription deactivation must be provided to use the subscription APIs");
+            SubscriptionPlanCreationUrl = planCreationUrl ?? throw new ArgumentNullException(nameof(planCreationUrl), "The URL for plan creation must be provided to use the subscription APIs");
+            SubscriptionPlanQueryUrl = planQueryUrl ?? throw new ArgumentNullException(nameof(planQueryUrl), "The URL for subscription plan queries must be provided to use the subscription APIs");
+            SubscriptionQueryUrl = queryUrl ?? throw new ArgumentNullException(nameof(queryUrl), "The URL for subscription queries must be provided to use the subscription APIs");
         }
 
-
+        #region
         public Task<ISubscriptionPlanCreationResponse> CreateSubscriptionPlan (ISubscriptionPlanCreationRequest request) => throw new NotImplementedException();
+        #endregion
+
+
+        #region
         public Task<ISubscriptionDisableRequest> DisableSubscription (ISubscriptionDisableRequest request) => throw new NotImplementedException();
+        #endregion
+
+
+        #region
         public Task<ISubscriptionEnableRequest> EnableSubscription (ISubscriptionEnableRequest request) => throw new NotImplementedException();
+        #endregion
+
+
+        #region
         public Task<ISubscriptionQueryResponse> GetSubscriptions (ISubscriptionQueryRequest request) => throw new NotImplementedException();
+        #endregion
+
+
+        #region
         public Task<ISubscriptionInitializationResponse> InitializeSubscription (ISubscriptionInitializationRequest request) => throw new NotImplementedException();
+        #endregion
+
+
+        #region
         public Task<ISubscriptionPlanQueryResponse> QuerySubscriptionPlans (ISubscriptionPlanQueryRequest request) => throw new NotImplementedException();
+        #endregion
+
 
         private void IsSubscriptionAPIReady ()
         {

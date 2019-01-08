@@ -16,7 +16,7 @@ namespace Staaworks.PaymentIntegrator.Paystack.Implementations.Requests.Payment
 
         public string Email { get; private set; }
 
-        public string Currency { get; private set; }
+        public string Currency { get; private set; } = "NGN";
 
         protected override void InitializeWithOptions (IDictionary<string, string> options)
         {
@@ -32,17 +32,13 @@ namespace Staaworks.PaymentIntegrator.Paystack.Implementations.Requests.Payment
 
         public override async Task<string> Serialize () => await Task.Run(() =>
         {
-            var obj = new JObject();
-
-            if (Currency != null)
+            var obj = new JObject
             {
-                obj["currency"] = Currency;
-            }
-
-            obj["authorization_code"] = AuthorizationReference;
-
-            obj["email"] = Email;
-            obj["amount"] = Amount;
+                ["authorization_code"] = AuthorizationReference,
+                ["currency"] = Currency,
+                ["email"] = Email,
+                ["amount"] = Amount
+            };
 
             return obj.ToString();
         });

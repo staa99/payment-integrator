@@ -15,7 +15,7 @@ namespace Staaworks.PaymentIntegrator.Paystack.Implementations.Requests.BankTran
 
         public long Amount { get; private set; }
 
-        public string Currency { get; private set; }
+        public string Currency { get; private set; } = "NGN";
 
         public string RecipientReference { get; private set; }
 
@@ -23,12 +23,14 @@ namespace Staaworks.PaymentIntegrator.Paystack.Implementations.Requests.BankTran
 
         public override Task<string> Serialize () => Task.Run(() =>
         {
-            var obj = new JObject();
-
-            if (Currency != null)
+            var obj = new JObject
             {
-                obj["currency"] = Currency;
-            }
+                ["currency"] = Currency,
+                ["amount"] = Amount,
+                ["source"] = Source,
+                ["recipient"] = RecipientReference
+            };
+
 
             if (Reason != null)
             {
@@ -39,10 +41,6 @@ namespace Staaworks.PaymentIntegrator.Paystack.Implementations.Requests.BankTran
             {
                 obj["reference"] = JObject.Parse(Reference);
             }
-
-            obj["amount"] = Amount;
-            obj["source"] = Source;
-            obj["recipient"] = RecipientReference;
 
             return obj.ToString();
         });

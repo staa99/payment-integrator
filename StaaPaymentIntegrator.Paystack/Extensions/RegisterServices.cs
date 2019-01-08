@@ -18,10 +18,12 @@ namespace Staaworks.PaymentIntegrator.Paystack.Extensions
             return services;
         }
 
+
         public static IServiceCollection AddPaystackConfiguration (this IServiceCollection services, IPaystackConfiguration configuration) => services.AddSingleton<IPaymentProviderConfiguration>(s =>
         {
             return configuration;
         });
+
 
         public static IServiceCollection AddPaystackEmpty (this IServiceCollection services) => services.AddTransient<IProvider>(s =>
         {
@@ -44,6 +46,7 @@ namespace Staaworks.PaymentIntegrator.Paystack.Extensions
             }
         });
 
+
         public static IServiceCollection AddPaystackForMiscBankOps (this IServiceCollection services) => services.AddTransient<IBanksProvider>(s =>
         {
             try
@@ -59,6 +62,7 @@ namespace Staaworks.PaymentIntegrator.Paystack.Extensions
                 throw new InvalidOperationException("You must call `AddPaystackConfiguration` and register an `IProvider` with `Paystack` before using the `AddPaystackForMiscBankOps` extension");
             }
         });
+
 
         public static IServiceCollection AddPaystackForPayments (this IServiceCollection services) => services.AddTransient<IPaymentProvider>(s =>
          {
@@ -105,6 +109,7 @@ namespace Staaworks.PaymentIntegrator.Paystack.Extensions
              }
          });
 
+        
         /*public static IServiceCollection AddPaystackForSubscriptions(this IServiceCollection services) => services.AddTransient<ISubscriptionProvider>(s =>
         {
             try

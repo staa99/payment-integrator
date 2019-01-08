@@ -2,8 +2,9 @@
 {
     public interface ISubscriptionPlanCreationRequest : IRequest
     {
+        string Name { get; }
         string Reference { get; }
-        long CycleDurationInHours { get; }
+        int CycleDurationInHours { get; }
         long Amount { get; }
         string Currency { get; }
     }

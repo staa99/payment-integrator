@@ -16,7 +16,7 @@ namespace Staaworks.PaymentIntegrator.Paystack.Implementations.Requests.Payment
 
         public long Amount { get; private set; }
 
-        public string Currency { get; private set; }
+        public string Currency { get; private set; } = "NGN";
 
         public string AuthorizationReference { get; private set; }
 
@@ -40,21 +40,18 @@ namespace Staaworks.PaymentIntegrator.Paystack.Implementations.Requests.Payment
 
         public override Task<string> Serialize () => Task.Run(() =>
         {
-            var obj = new JObject();
+            var obj = new JObject
+            {
+                ["authorization_code"] = AuthorizationReference,
+                ["currency"] = Currency,
+                ["email"] = Email,
+                ["amount"] = Amount
+            };
+
             if (Reference != null)
             {
                 obj["reference"] = Reference;
             }
-
-            if (Currency != null)
-            {
-                obj["currency"] = Currency;
-            }
-
-            obj["authorization_code"] = AuthorizationReference;
-
-            obj["email"] = Email;
-            obj["amount"] = Amount;
 
             return obj.ToString();
         });

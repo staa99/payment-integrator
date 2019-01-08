@@ -20,6 +20,13 @@
             PAYSTACK_INITIALIZATION_REFERENCE_KEY = "paystackinitializationreferencekey",
             PAYSTACK_TRANSFER_RECIPIENT_REFERENCE_KEY = "paystacktransferrecipientreferencekey",
             PAYSTACK_TRANSFER_REFERENCE_KEY = "paystacktransferreferencekey",
-            PAYSTACK_VERIFICATION_REFERENCE_KEY = "paystackverificationreferencekey";
+            PAYSTACK_VERIFICATION_REFERENCE_KEY = "paystackverificationreferencekey",
+            PAYSTACK_SUBSCRIPTION_CODE_KEY = "paystacksubscriptioncodekey",
+            PAYSTACK_EMAIL_TOKEN_KEY = "paystackemailtokenkey",
+            PAYSTACK_CUSTOMER_REFERENCE_KEY = "paystackcustomerreferencekey",
+            PAYSTACK_PLAN_CODE_KEY = "paystackplancodekey",
+            PAYSTACK_PLAN_NAME_KEY = "paystackplannamekey",
+            PAYSTACK_PLAN_INTERVAL_KEY = "paystackplanintervalkey",
+            PAYSTACK_START_DATE_KEY = "paystackstartdatekey";
     }
 }

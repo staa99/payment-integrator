@@ -4,7 +4,7 @@ namespace Staaworks.PaymentIntegrator.Interfaces.Requests.Subscription
 {
     public interface ISubscriptionInitializationRequest : IRequest
     {
-        string Customer { get; }
+        string CustomerReference { get; }
 
         string PlanReference { get; }
 

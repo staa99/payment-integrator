@@ -11,7 +11,7 @@ namespace Staaworks.PaymentIntegrator.Paystack.Implementations.Responses.BankTra
 
         public long Amount { get; private set; }
 
-        public string Currency { get; private set; }
+        public string Currency { get; private set; } = "NGN";
 
         protected override Task DoParse (JToken data, string status) => Task.Run(() =>
         {
