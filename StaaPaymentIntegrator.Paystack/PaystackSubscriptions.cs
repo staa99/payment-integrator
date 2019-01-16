@@ -44,7 +44,7 @@ namespace Staaworks.PaymentIntegrator.Paystack
 
 
         #region
-        public Task<ISubscriptionQueryResponse> GetSubscriptions (ISubscriptionQueryRequest request) => throw new NotImplementedException();
+        public Task<ISubscriptionDetailsResponse> GetSubscription (ISubscriptionDetailsRequest request) => throw new NotImplementedException();
         #endregion
 
 
@@ -54,7 +54,7 @@ namespace Staaworks.PaymentIntegrator.Paystack
 
 
         #region
-        public Task<ISubscriptionPlanQueryResponse> QuerySubscriptionPlans (ISubscriptionPlanQueryRequest request) => throw new NotImplementedException();
+        public Task<ISubscriptionPlanDetailsResponse> GetSubscriptionPlan (ISubscriptionPlanDetailsRequest request) => throw new NotImplementedException();
         #endregion
 
 

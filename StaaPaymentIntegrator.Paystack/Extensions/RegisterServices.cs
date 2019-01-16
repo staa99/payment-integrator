@@ -25,7 +25,7 @@ namespace Staaworks.PaymentIntegrator.Paystack.Extensions
         });
 
 
-        public static IServiceCollection AddPaystackEmpty (this IServiceCollection services) => services.AddTransient<IProvider>(s =>
+        public static IServiceCollection AddPaystackEmpty (this IServiceCollection services) => services.AddSingleton<IProvider>(s =>
         {
             try
             {
@@ -47,7 +47,7 @@ namespace Staaworks.PaymentIntegrator.Paystack.Extensions
         });
 
 
-        public static IServiceCollection AddPaystackForMiscBankOps (this IServiceCollection services) => services.AddTransient<IBanksProvider>(s =>
+        public static IServiceCollection AddPaystackForMiscBankOps (this IServiceCollection services) => services.AddSingleton<IBanksProvider>(s =>
         {
             try
             {
@@ -64,7 +64,7 @@ namespace Staaworks.PaymentIntegrator.Paystack.Extensions
         });
 
 
-        public static IServiceCollection AddPaystackForPayments (this IServiceCollection services) => services.AddTransient<IPaymentProvider>(s =>
+        public static IServiceCollection AddPaystackForPayments (this IServiceCollection services) => services.AddSingleton<IPaymentProvider>(s =>
          {
              try
              {
@@ -87,7 +87,7 @@ namespace Staaworks.PaymentIntegrator.Paystack.Extensions
          });
 
 
-        public static IServiceCollection AddPaystackForTransfers (this IServiceCollection services) => services.AddTransient<ITransferProvider>(s =>
+        public static IServiceCollection AddPaystackForTransfers (this IServiceCollection services) => services.AddSingleton<ITransferProvider>(s =>
          {
              try
              {

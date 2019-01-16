@@ -1,11 +1,6 @@
 ﻿namespace Staaworks.PaymentIntegrator.Interfaces.Responses.Subscription
 {
-    public interface ISubscriptionPlanQueryResponse : IResponse
-    {
-        ISubscriptionPlanQueryItem[] Plans { get; }
-    }
-
-    public interface ISubscriptionPlanQueryItem
+    public interface ISubscriptionPlanDetailsResponse : IResponse
     {
         int ActiveSubscriptionCount { get; }
         int TotalSubscriptionCount { get; }

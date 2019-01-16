@@ -20,15 +20,6 @@ namespace Staaworks.PaymentIntegrator.Paystack.Implementations.Requests.Subscrip
 
         public string Currency { get; private set; } = "NGN";
 
-        private readonly IDictionary<int, string> IntervalMap = new Dictionary<int, string>
-        {
-            [1] = "hourly",
-            [24] = "daily",
-            [168] = "weekly",
-            [720] = "monthly",
-            [8760] = "annually"
-        };
-
         public override Task<string> Serialize () => Task.Run(() =>
         {
             var obj = new JObject
@@ -49,6 +40,7 @@ namespace Staaworks.PaymentIntegrator.Paystack.Implementations.Requests.Subscrip
 
             return obj.ToString();
         });
+
 
         public override bool Validate (out Exception ex)
         {
@@ -72,6 +64,8 @@ namespace Staaworks.PaymentIntegrator.Paystack.Implementations.Requests.Subscrip
             ex = null;
             return true;
         }
+
+
         protected override void InitializeWithOptions (IDictionary<string, string> options)
         {
             Reference = options[PAYSTACK_PLAN_NAME_KEY] ?? throw new ArgumentNullException(nameof(Reference));

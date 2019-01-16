@@ -21,8 +21,8 @@ namespace Staaworks.PaymentIntegrator.Providers
 
         Task<ISubscriptionPlanCreationResponse> CreateSubscriptionPlan (ISubscriptionPlanCreationRequest request);
 
-        Task<ISubscriptionPlanQueryResponse> QuerySubscriptionPlans (ISubscriptionPlanQueryRequest request);
+        Task<ISubscriptionPlanDetailsResponse> GetSubscriptionPlan (ISubscriptionPlanDetailsRequest request);
 
-        Task<ISubscriptionQueryResponse> GetSubscriptions (ISubscriptionQueryRequest request);
+        Task<ISubscriptionDetailsResponse> GetSubscription (ISubscriptionDetailsRequest request);
     }
 }

@@ -8,6 +8,8 @@ namespace Staaworks.PaymentIntegrator.Interfaces.Requests.Subscription
 
         string PlanReference { get; }
 
+        string AuthorizationReference { get; }
+
         DateTime StartDate { get; }
     }
 }

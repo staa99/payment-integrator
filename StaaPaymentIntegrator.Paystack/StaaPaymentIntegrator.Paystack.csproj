@@ -1,9 +1,31 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>1.1.0</Version>
+    <TargetFramework>netstandard1.0</TargetFramework>
+    <Version>1.2.0</Version>
     <RootNamespace>Staaworks.PaymentIntegrator.Paystack</RootNamespace>
+    <AssemblyName>Staaworks.PaymentIntegrator.Paystack</AssemblyName>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <Authors>Staa99</Authors>
+    <Company>Staa99</Company>
+    <Product>PaymentIntegrator.Paystack</Product>
+    <Description>This paystack implementation depends on the abstractions in the `Staaworks.PaymentIntegrator` package. It supports a few Paystack features from simple one-off payments to subscriptions to miscellaneous bank APIs.</Description>
+    <PackageLicenseUrl>https://www.gnu.org/licenses/gpl.txt</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/staa99/payment-integrator</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/staa99/payment-integrator</RepositoryUrl>
+    <RepositoryType>Github</RepositoryType>
+    <PackageTags>paystack; payment integration;</PackageTags>
+    <PackageReleaseNotes>This is the first implementation of Staaworks.PaymentIntegrator for Paystack.
+
+It supports the following:
+* One-off payments
+* Transaction verification
+* Bank account name/number verification
+* Bank transfers
+* Subscriptions
+
+... and more.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
@@ -12,6 +34,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="1.0.0" />
+    <PackageReference Include="System.Net.Requests" Version="4.3.0" />
   </ItemGroup>
 
 </Project>

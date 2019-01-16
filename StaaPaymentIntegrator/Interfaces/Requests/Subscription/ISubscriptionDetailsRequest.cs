@@ -1,7 +1,7 @@
 ﻿namespace Staaworks.PaymentIntegrator.Interfaces.Requests.Subscription
 {
-    public interface ISubscriptionQueryRequest
+    public interface ISubscriptionDetailsRequest
     {
-        string[] Reference { get; }
+        string Reference { get; }
     }
 }

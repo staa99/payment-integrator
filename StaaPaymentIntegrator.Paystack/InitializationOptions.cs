@@ -1,4 +1,6 @@
-﻿namespace Staaworks.PaymentIntegrator.Paystack
+﻿using System.Collections.Generic;
+
+namespace Staaworks.PaymentIntegrator.Paystack
 {
     public static class InitializationOptions
     {
@@ -24,9 +26,19 @@
             PAYSTACK_SUBSCRIPTION_CODE_KEY = "paystacksubscriptioncodekey",
             PAYSTACK_EMAIL_TOKEN_KEY = "paystackemailtokenkey",
             PAYSTACK_CUSTOMER_REFERENCE_KEY = "paystackcustomerreferencekey",
+            PAYSTACK_PLAN_REFERENCE_KEY = "paystackplanreferencekey",
             PAYSTACK_PLAN_CODE_KEY = "paystackplancodekey",
             PAYSTACK_PLAN_NAME_KEY = "paystackplannamekey",
             PAYSTACK_PLAN_INTERVAL_KEY = "paystackplanintervalkey",
             PAYSTACK_START_DATE_KEY = "paystackstartdatekey";
+
+        public static readonly IDictionary<int, string> IntervalMap = new Dictionary<int, string>
+        {
+            [1] = "hourly",
+            [24] = "daily",
+            [168] = "weekly",
+            [720] = "monthly",
+            [8760] = "annually"
+        };
     }
 }

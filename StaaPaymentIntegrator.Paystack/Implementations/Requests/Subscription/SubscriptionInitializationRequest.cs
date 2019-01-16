@@ -11,7 +11,10 @@ namespace Staaworks.PaymentIntegrator.Paystack.Implementations.Requests.Subscrip
     {
         public string CustomerReference { get; private set; }
         public string PlanReference { get; private set; }
+        public string AuthorizationReference { get; private set; }
         public DateTime StartDate { get; private set; } = DateTime.Now;
+
+
         public override Task<string> Serialize () => Task.Run(() =>
         {
             var obj = new JObject
@@ -20,6 +23,11 @@ namespace Staaworks.PaymentIntegrator.Paystack.Implementations.Requests.Subscrip
                 ["plan"] = PlanReference,
                 ["start_date"] = StartDate
             };
+
+            if (AuthorizationReference != null)
+            {
+                obj["authorization"] = AuthorizationReference;
+            }
 
             return obj.ToString();
         });
@@ -48,7 +56,9 @@ namespace Staaworks.PaymentIntegrator.Paystack.Implementations.Requests.Subscrip
         {
             CustomerReference = options[PAYSTACK_CUSTOMER_REFERENCE_KEY] ?? throw new ArgumentNullException(nameof(CustomerReference));
             PlanReference = options[PAYSTACK_PLAN_CODE_KEY] ?? throw new ArgumentNullException(nameof(PlanReference));
-            StartDate = DateTime.Parse(options[PAYSTACK_START_DATE_KEY] ?? throw new ArgumentNullException(nameof(StartDate)));
+
+            AuthorizationReference = options[PAYSTACK_AUTHORIZATION_REFERENCE_KEY];
+            StartDate = DateTime.Parse(options[PAYSTACK_START_DATE_KEY]);
         }
     }
 }

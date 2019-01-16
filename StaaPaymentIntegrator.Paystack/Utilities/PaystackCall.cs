@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Linq;
 using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 using Staaworks.PaymentIntegrator.Interfaces.Responses;
 using Staaworks.PaymentIntegrator.Utilities;
+using System.Threading;
 
 namespace Staaworks.PaymentIntegrator.Paystack.Utilities
 {
@@ -61,59 +63,78 @@ namespace Staaworks.PaymentIntegrator.Paystack.Utilities
         }
         
 
-        protected virtual HttpWebRequest GetRequest ()
+        protected virtual WebRequest GetRequest ()
         {
             var request = (HttpWebRequest)WebRequest.Create(Url);
             request.Method = Method;
             request.ContentType = "application/json";
-            request.Headers.Add(HttpRequestHeader.Authorization, "Bearer " + SecretKey);
+            request.Headers[HttpRequestHeader.Authorization] = "Bearer " + SecretKey;
 
             if (RawData != null)
             {
-                using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+                request.BeginGetRequestStream(ar =>
                 {
-                    streamWriter.Write(RawData);
-                    streamWriter.Flush();
-                    streamWriter.Close();
-                }
+                    using (var streamWriter = new StreamWriter(request.EndGetRequestStream(ar)))
+                    {
+                        streamWriter.Write(RawData);
+                        streamWriter.Flush();
+                    }
+                }, request);
             }
             return request;
         }
 
-        private void PerformSSLHack ()
+        /*private void PerformSSLHack ()
         {
             ServicePointManager.Expect100Continue = true;
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
             // allows for validation of SSL conversations
             ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-        }
+        }*/
 
         private bool OutputResponse (out WebResponse response, out Exception ex)
         {
-            try
+            var request = GetRequest();
+            //PerformSSLHack();
+            var evt = new ManualResetEvent (false);
+
+
+            WebResponse r = null;
+            Exception exception = null;
+            bool result = false;
+
+            request.BeginGetResponse(ar =>
             {
-                var request = GetRequest();
-                PerformSSLHack();
-                response = request.GetResponse();
-                ex = null;
-                return true;
-            }
-            catch (WebException e)
-            {
-                if (e.Response != null)
+                try
                 {
-                    response = e.Response;
-                    ex = null;
-                    return true;
+                    r = request.EndGetResponse(ar);
+                    exception = null;
+                    result = true;
                 }
-                else
+                catch (WebException e)
                 {
-                    response = null;
-                    ex = e;
-                    return false;
+                    if (e.Response != null)
+                    {
+                        r = e.Response;
+                        exception = null;
+                        result = true;
+                    }
+                    else
+                    {
+                        r = null;
+                        exception = e;
+                        result = false;
+                    }
                 }
-            }
+                evt.Set();
+            }, null);
+            evt.WaitOne();
+
+            response = r;
+            ex = exception;
+
+            return result;
         }
     }
 }
