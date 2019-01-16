@@ -6,23 +6,19 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <Authors>Staa99</Authors>
-    <Description>This Payment Integrator is simply a set of interfaces extensible to implement many payment processing platforms. A few examples of implementations of this project can be found in other projects.
-
-What's new in 1.1.0:
-No external API changes made.
-Major improvements with respect to code structure.
-Unit tests written for the Paystack implementation.</Description>
+    <Description>This Payment Integrator is simply a set of interfaces extensible to implement many payment processing platforms. A few examples of implementations of this project can be found in other projects.</Description>
     <RepositoryUrl>https://github.com/staa99/payment-integrator</RepositoryUrl>
     <RepositoryType>Github</RepositoryType>
     <PackageTags>flutterwave; paystack; payment integration;</PackageTags>
     <PackageProjectUrl>https://github.com/staa99/payment-integrator</PackageProjectUrl>
     <Product>PaymentIntegrator</Product>
     <PackageLicenseUrl>https://www.gnu.org/licenses/gpl.txt</PackageLicenseUrl>
-    <Version>1.2.0</Version>
+    <Version>1.2.1</Version>
     <SignAssembly>false</SignAssembly>
     <AssemblyOriginatorKeyFile />
     <AssemblyName>Staaworks.PaymentIntegrator</AssemblyName>
-    <PackageReleaseNotes>Add support for transfers</PackageReleaseNotes>
+    <PackageReleaseNotes>Add support for transfers
+Add support for subscriptions</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

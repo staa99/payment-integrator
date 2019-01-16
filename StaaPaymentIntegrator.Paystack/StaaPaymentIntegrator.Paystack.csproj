@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard1.0</TargetFramework>
-    <Version>1.2.0</Version>
+    <Version>1.2.1</Version>
     <RootNamespace>Staaworks.PaymentIntegrator.Paystack</RootNamespace>
     <AssemblyName>Staaworks.PaymentIntegrator.Paystack</AssemblyName>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -26,6 +26,7 @@ It supports the following:
 * Subscriptions
 
 ... and more.</PackageReleaseNotes>
+    <PackageIconUrl>https://user-images.githubusercontent.com/15840315/50404123-9b1e5c80-07a4-11e9-9fb5-872b91ee4023.png</PackageIconUrl>
   </PropertyGroup>
 
   <ItemGroup>
