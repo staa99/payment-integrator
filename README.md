@@ -1,6 +1,8 @@
+[![Build Status](https://travis-ci.com/staa99/payment-integrator.svg?branch=master)](https://travis-ci.com/staa99/payment-integrator)
+
 # Payment Integrator
 
-This Payment Integrator is simply a set of interfaces extensible to implement many payment processing platforms. A few examples of implementations of this project can be found in other projects.
+This repository is intended for use by developers and organizations to solve their payment integration needs. The base is an abstraction library that can be implemented to provide support for different payment providers.
 
 ## Getting Started
 
@@ -11,7 +13,7 @@ These instructions will get you a copy of the project up and running on your loc
 What you need to begin integrating the right way ;-)
 
 * The `StaaPaymentIntegrator` nuget package.
-* The particular implementation of your payment provider. Usually something like, `StaaPaymentIntegrator.***`
+* The particular implementation of your payment provider. Usually something like, `StaaPaymentIntegrator.***`.
 
 ### Installing
 
@@ -23,13 +25,10 @@ You can usually find particular implementations of this library that are support
 
 For example, to integrate with Paystack, you can use the `StaaPaymentIntegrator.Paystack` package.
 
-Recommended way to use this project is to use the `IPaymentProviderBuilder` in a DI container to serve a particular implementation. That way, switching providers becomes as simple as changing a line of code.
-
-For example, to use Paystack in .NET Core with the built in DI container, add this line to ConfigureServices method.
-
-`services.AddTransient<IPaymentProviderBuilder, PaystackBuilder>();`
-
-`PaystackBuilder` is the implementation of `IPaymentProviderBuilder` that is contained in the `StaaPaymentIntegrator.Paystack` package.
+To add all supported Paystack features, simply call
+`services.AddPaystack(configuration);`
+on your IServiceCollection.
+Read the docs to see how to manually configure the library for your use.
 
 (aside)
 Hey, what's all this fuss about Paystack? Well, I personally use Paystack in projects, so why not write first for Paystack?
