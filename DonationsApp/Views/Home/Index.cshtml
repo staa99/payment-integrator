@@ -1,0 +1,37 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="row center-block text-center">
+    <div class="col-md-8 col-md-offset-2">
+        <h4 class="center-block text-center">Sample donations app, based on Staaworks.PaymentIntegrator</h4>
+        <hr />
+
+        <div class="col-md-offset-3 col-md-6">
+            <div class="panel">
+                <div class="panel-heading">
+                    Give whatever you feel like to test the library
+                </div>
+                <div class="panel-body" align="center">
+                    <form asp-action="donate" method="post">
+                        <div class="form-group">
+                            <input id="donation" name="donation" placeholder="NGN " class="form-control" required />
+                        </div>
+
+                        <div class="form-group">
+                            <select class="form-control" name="frequency" required>
+                                <option value="one-off">One-off</option>
+                                <option value="hourly">hourly</option>
+                                <option value="daily">daily</option>
+                                <option value="weekly">weekly</option>
+                                <option value="monthly">monthly</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-success">Donate to test</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
