@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard1.0</TargetFramework>
-    <Version>1.2.1</Version>
+    <Version>1.2.2</Version>
     <RootNamespace>Staaworks.PaymentIntegrator.Paystack</RootNamespace>
     <AssemblyName>Staaworks.PaymentIntegrator.Paystack</AssemblyName>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -16,16 +16,7 @@
     <RepositoryUrl>https://github.com/staa99/payment-integrator</RepositoryUrl>
     <RepositoryType>Github</RepositoryType>
     <PackageTags>paystack; payment integration;</PackageTags>
-    <PackageReleaseNotes>This is the first implementation of Staaworks.PaymentIntegrator for Paystack.
-
-It supports the following:
-* One-off payments
-* Transaction verification
-* Bank account name/number verification
-* Bank transfers
-* Subscriptions
-
-... and more.</PackageReleaseNotes>
+    <PackageReleaseNotes>Add default configuration for initializing paystack.</PackageReleaseNotes>
     <PackageIconUrl>https://user-images.githubusercontent.com/15840315/50404123-9b1e5c80-07a4-11e9-9fb5-872b91ee4023.png</PackageIconUrl>
   </PropertyGroup>
 

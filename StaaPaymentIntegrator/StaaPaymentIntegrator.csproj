@@ -13,12 +13,11 @@
     <PackageProjectUrl>https://github.com/staa99/payment-integrator</PackageProjectUrl>
     <Product>PaymentIntegrator</Product>
     <PackageLicenseUrl>https://www.gnu.org/licenses/gpl.txt</PackageLicenseUrl>
-    <Version>1.2.1</Version>
+    <Version>1.2.2</Version>
     <SignAssembly>false</SignAssembly>
     <AssemblyOriginatorKeyFile />
     <AssemblyName>Staaworks.PaymentIntegrator</AssemblyName>
-    <PackageReleaseNotes>Add support for transfers
-Add support for subscriptions</PackageReleaseNotes>
+    <PackageReleaseNotes>Add default configuration in Paystack implementation</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
