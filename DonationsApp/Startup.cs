@@ -41,7 +41,7 @@ namespace DonationsApp
             services.AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            
+            services.AddPaystack(new DefaultPaystackConfiguration(Configuration["paystack_sk"]));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
