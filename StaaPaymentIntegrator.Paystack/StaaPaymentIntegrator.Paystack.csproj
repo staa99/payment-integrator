@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard1.0</TargetFramework>
-    <Version>1.2.2</Version>
+    <Version>1.2.4</Version>
     <RootNamespace>Staaworks.PaymentIntegrator.Paystack</RootNamespace>
     <AssemblyName>Staaworks.PaymentIntegrator.Paystack</AssemblyName>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -10,14 +10,19 @@
     <Authors>Staa99</Authors>
     <Company>Staa99</Company>
     <Product>PaymentIntegrator.Paystack</Product>
-    <Description>This paystack implementation depends on the abstractions in the `Staaworks.PaymentIntegrator` package. It supports a few Paystack features from simple one-off payments to subscriptions to miscellaneous bank APIs.</Description>
+    <Description>This paystack implementation depends on the abstractions in the `Staaworks.PaymentIntegrator` package. It supports a few Paystack features from simple one-off payments to subscriptions to miscellaneous bank APIs.
+
+#changelog 1.2.4
+Fixed bug that prevents the dashboard callback URL from being overridden.</Description>
     <PackageLicenseUrl>https://www.gnu.org/licenses/gpl.txt</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/staa99/payment-integrator</PackageProjectUrl>
     <RepositoryUrl>https://github.com/staa99/payment-integrator</RepositoryUrl>
     <RepositoryType>Github</RepositoryType>
     <PackageTags>paystack; payment integration;</PackageTags>
-    <PackageReleaseNotes>Add default configuration for initializing paystack.</PackageReleaseNotes>
+    <PackageReleaseNotes>Fix a bug that prevents the default configuration from working</PackageReleaseNotes>
     <PackageIconUrl>https://user-images.githubusercontent.com/15840315/50404123-9b1e5c80-07a4-11e9-9fb5-872b91ee4023.png</PackageIconUrl>
+    <AssemblyVersion>1.2.4.0</AssemblyVersion>
+    <FileVersion>1.2.4.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>

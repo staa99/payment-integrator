@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
 using Staaworks.PaymentIntegrator.Configuration;
 using Staaworks.PaymentIntegrator.Providers;
@@ -10,10 +11,10 @@ namespace Staaworks.PaymentIntegrator.Paystack.Extensions
         public static IServiceCollection AddPaystack (this IServiceCollection services, IPaystackConfiguration configuration)
         {
             services.AddPaystackConfiguration(configuration);
-            services.AddPaystackEmpty();
-            services.AddPaystackForMiscBankOps();
-            services.AddPaystackForPayments();
-            services.AddPaystackForTransfers();
+            services.AddPaystackEmpty(configuration.ProviderName);
+            services.AddPaystackForMiscBankOps(configuration.ProviderName);
+            services.AddPaystackForPayments(configuration.ProviderName);
+            services.AddPaystackForTransfers(configuration.ProviderName);
             //services.AddPaystackForSubscriptions();
             return services;
         }
@@ -25,20 +26,13 @@ namespace Staaworks.PaymentIntegrator.Paystack.Extensions
         });
 
 
-        public static IServiceCollection AddPaystackEmpty (this IServiceCollection services) => services.AddSingleton<IProvider>(s =>
+        public static IServiceCollection AddPaystackEmpty (this IServiceCollection services, string key) => services.AddSingleton<IProvider>(s =>
         {
             try
             {
-                var optionsProvider = s.GetService<IPaystackConfiguration>();
-
-                if (optionsProvider.ProviderName != null)
-                {
-                    return new Paystack(optionsProvider.SecretKey, optionsProvider.ProviderName);
-                }
-                else
-                {
-                    return new Paystack(optionsProvider.SecretKey);
-                }
+                var optionsProvider = s.GetServices<IPaymentProviderConfiguration>().First(c => c.ProviderName == key) as IPaystackConfiguration;
+                
+                return new Paystack(optionsProvider.SecretKey, optionsProvider.ProviderName);
             }
             catch
             {
@@ -47,12 +41,12 @@ namespace Staaworks.PaymentIntegrator.Paystack.Extensions
         });
 
 
-        public static IServiceCollection AddPaystackForMiscBankOps (this IServiceCollection services) => services.AddSingleton<IBanksProvider>(s =>
+        public static IServiceCollection AddPaystackForMiscBankOps (this IServiceCollection services, string key) => services.AddSingleton<IBanksProvider>(s =>
         {
             try
             {
-                var optionsProvider = s.GetService<IPaystackConfiguration>();
-                var paystack = s.GetService<Paystack>();
+                var optionsProvider = s.GetServices<IPaymentProviderConfiguration>().First(c => c.ProviderName == key) as IPaystackConfiguration;
+                var paystack = s.GetServices<IProvider>() as Paystack;
 
                 paystack.InitializeBanks(optionsProvider.BanksListUrl, optionsProvider.BankAccountNameQueryUrl);
                 return paystack;
@@ -64,12 +58,12 @@ namespace Staaworks.PaymentIntegrator.Paystack.Extensions
         });
 
 
-        public static IServiceCollection AddPaystackForPayments (this IServiceCollection services) => services.AddSingleton<IPaymentProvider>(s =>
+        public static IServiceCollection AddPaystackForPayments (this IServiceCollection services, string key) => services.AddSingleton<IPaymentProvider>(s =>
          {
              try
              {
-                 var optionsProvider = s.GetService<IPaystackConfiguration>();
-                 var paystack = s.GetService<Paystack>();
+                 var optionsProvider = s.GetServices<IPaymentProviderConfiguration>().First(c => c.ProviderName == key) as IPaystackConfiguration;
+                 var paystack = s.GetServices<IProvider>() as Paystack;
 
                  paystack.InitializePayments(
                      optionsProvider.PaymentVerificationUrl,
@@ -87,12 +81,12 @@ namespace Staaworks.PaymentIntegrator.Paystack.Extensions
          });
 
 
-        public static IServiceCollection AddPaystackForTransfers (this IServiceCollection services) => services.AddSingleton<ITransferProvider>(s =>
+        public static IServiceCollection AddPaystackForTransfers (this IServiceCollection services, string key) => services.AddSingleton<ITransferProvider>(s =>
          {
              try
              {
-                 var optionsProvider = s.GetService<IPaystackConfiguration>();
-                 var paystack = s.GetService<Paystack>();
+                 var optionsProvider = s.GetServices<IPaymentProviderConfiguration>().First(c => c.ProviderName == key) as IPaystackConfiguration;
+                 var paystack = s.GetServices<IProvider>() as Paystack;
 
                  paystack.InitializePayments(
                      optionsProvider.PaymentVerificationUrl,
@@ -109,13 +103,13 @@ namespace Staaworks.PaymentIntegrator.Paystack.Extensions
              }
          });
 
-        
-        /*public static IServiceCollection AddPaystackForSubscriptions(this IServiceCollection services) => services.AddTransient<ISubscriptionProvider>(s =>
+
+        /*public static IServiceCollection AddPaystackForSubscriptions(this IServiceCollection services, string key) => services.AddTransient<ISubscriptionProvider>(s =>
         {
             try
             {
-                var optionsProvider = s.GetService<IPaystackInitializationOptionsProvider>();
-                var paystack = s.GetService<Paystack>();
+                var optionsProvider = s.GetServices<IPaystackInitializationOptionsProvider>();
+                var paystack = s.GetServices<IProvider>() as Paystack;
 
                 paystack.InitializePayments(
                     optionsProvider.PaymentVerificationUrl,

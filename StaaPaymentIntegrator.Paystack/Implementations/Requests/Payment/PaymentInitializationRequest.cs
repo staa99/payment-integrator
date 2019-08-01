@@ -34,6 +34,11 @@ namespace Staaworks.PaymentIntegrator.Paystack.Implementations.Requests.Payment
             {
                 Reference = reference;
             }
+
+            if (options.TryGetValue(PAYSTACK_CALLBACK_URL_KEY, out var callbackUrl))
+            {
+                CallbackUrl = callbackUrl;
+            }
         }
 
         public override Task<string> Serialize () => Task.Run(() =>

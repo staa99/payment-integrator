@@ -38,12 +38,27 @@
         </div>
     </nav>
     <div class="container body-content">
-        @RenderBody()
+        <div class="row center-block text-center">
+            <div class="col-md-8 col-md-offset-2">
+                <h4 class="center-block text-center">Sample donations app, based on Staaworks.PaymentIntegrator</h4>
+                <hr />
+
+                <div class="col-md-offset-3 col-md-6">
+                    <div class="panel">
+                        @RenderBody()
+                    </div>
+                </div>
+            </div>
+        </div>
         <hr />
-        <footer>
+        <footer class="text-center">
             <p>&copy; 2019 - DonationSample</p>
         </footer>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2"></script>"
+
 
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
@@ -65,6 +80,17 @@
         </script>
         <script src="~/js/site.min.js" asp-append-version="true"></script>
     </environment>
+
+    @if (ViewBag.amountPaid != null)
+    {
+        <script type="text/javascript">
+            Swal.fire({
+                type: 'success',
+                title: 'Thanks',
+                text: 'You paid @ViewBag.amountPaid'
+            });
+        </script>
+    }
 
     @RenderSection("Scripts", required: false)
 </body>

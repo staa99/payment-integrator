@@ -54,10 +54,7 @@ namespace Staaworks.PaymentIntegrator.Paystack.Utilities
             OnError = onError;
             OnResult = onResult;
 
-            if (rawData != null)
-            {
-                RawData = rawData;
-            }
+            RawData = rawData;
 
             return this;
         }

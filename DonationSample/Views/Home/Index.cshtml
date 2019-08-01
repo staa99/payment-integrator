@@ -1,37 +1,160 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home";
 }
 
-<div class="row center-block text-center">
-    <div class="col-md-8 col-md-offset-2">
-        <h4 class="center-block text-center">Sample donations app, based on Staaworks.PaymentIntegrator</h4>
-        <hr />
+<ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#one-time-payment">One Time Payment</a></li>
+    <li><a data-toggle="tab" href="#query-account-name">Query Account Name</a></li>
+    @*<li><a data-toggle="tab" href="#subscriptions">Subscriptions</a></li>*@
+</ul>
 
-        <div class="col-md-offset-3 col-md-6">
-            <div class="panel">
-                <div class="panel-heading">
-                    Give whatever you feel like to test the library
+<div class="tab-content">
+    <div id="one-time-payment" class="tab-pane fade in active">
+        <div class="panel-heading">
+            Test one time payment
+        </div>
+        <div class="panel-body" align="center">
+            <form id="oneTimePaymentForm" class="validateDontSubmit" asp-action="donate" method="post">
+
+                <div class="form-group">
+                    <input id="email" name="email" placeholder="Email" type="email" class="form-control" required />
                 </div>
-                <div class="panel-body" align="center">
-                    <form asp-action="donate" method="post">
-                        <div class="form-group">
-                            <input id="donation" name="donation" placeholder="NGN " class="form-control" required />
-                        </div>
 
-                        <div class="form-group">
-                            <select class="form-control" name="frequency" required>
-                                <option value="one-off">One-off</option>
-                                <option value="hourly">hourly</option>
-                                <option value="daily">daily</option>
-                                <option value="weekly">weekly</option>
-                                <option value="monthly">monthly</option>
-                            </select>
-                        </div>
-
-                        <button type="submit" class="btn btn-success">Donate to test</button>
-                    </form>
+                <div class="form-group">
+                    <input id="donation" name="donation" placeholder="Amount in Naira (min 100)" min="100" type="number" class="form-control" required />
                 </div>
-            </div>
+
+                <button type="button" onclick="javascript: makeOneTimePayment();" class="btn btn-success">Click to test</button>
+            </form>
         </div>
     </div>
+
+    <div id="query-account-name" class="tab-pane fade">
+        <div class="panel-heading">
+            Test Account Name Query
+        </div>
+        <div class="panel-body" align="center">
+            <form id="queryAccountNameForm" class="validateDontSubmit" asp-action="QueryAccountName" method="get">
+                <div class="form-group">
+                    <select id="banks" name="bankCode" placeholder="Choose Bank" class="form-control" required />
+                </div>
+
+                <div class="form-group">
+                    <input id="accountNumber" name="accountNumber" placeholder="NUBAN" class="form-control" required />
+                </div>
+
+                <div class="form-group">
+                    <input id="accountNameInput" class="form-control" disabled />
+                </div>
+
+                <button type="button" onclick="javascript: queryAccountName();" class="btn btn-success">Click to test</button>
+            </form>
+        </div>
+    </div>
+    <div id="subscriptions" class="tab-pane fade">
+        @*
+            <div class="panel-heading">
+                Test Subscriptions
+            </div>
+            <div class="panel-body" align="center">
+                <form asp-action="donate" method="post">
+
+                    <div class="form-group">
+                        <input id="email" name="email" placeholder="Email" type="email" class="form-control" required />
+                    </div>
+
+                    <div class="form-group">
+                        <input id="donation" name="donation" placeholder="Amount in Naira (min 100)" min="100" type="number" class="form-control" required />
+                    </div>
+
+
+                    <div class="form-group">
+                        <select class="form-control" name="frequency" required>
+                            <optgroup label="Choose frequency">Choose frequency</optgroup>
+                            <option value="one-off">One-off</option>
+                            <option value="hourly">hourly</option>
+                            <option value="daily">daily</option>
+                            <option value="weekly">weekly</option>
+                            <option value="monthly">monthly</option>
+                        </select>
+                    </div>
+
+
+                    <button type="button" onclick="" class="btn btn-success">Click to test</button>
+                </form>
+            </div>
+        *@
+    </div>
 </div>
+
+
+
+@section Scripts
+    {
+    <script type="text/javascript">
+        const oneTimePaymentForm = $("#oneTimePaymentForm");
+        const queryAccountNameForm = $("#queryAccountNameForm");
+        const accountNameInput = $("#accountNameInput");
+        const banksSelect = document.getElementById("banks");
+
+        function makeOneTimePayment() {
+            if (oneTimePaymentForm[0].checkValidity()) {
+                $.post({
+                    url: oneTimePaymentForm.attr("action"),
+                    dataType: "json",
+                    data: oneTimePaymentForm.serialize(),
+                    success: function (data, status, jqXhr) {
+                        if (data.status == "success") {
+                            window.location.assign(data.authorizationUrl);
+                        }
+                    }
+                });
+            }
+
+            else {
+                oneTimePaymentForm[0].reportValidity()
+            }
+        }
+
+        function queryAccountName() {
+            if (queryAccountNameForm[0].checkValidity()) {
+                $.get({
+                    url: queryAccountNameForm.attr("action"),
+                    dataType: "json",
+                    data: queryAccountNameForm.serialize(),
+                    success: function (data, status, jqXhr) {
+                        if (data.status == "success") {
+                            accountNameInput.val(data.accountName);
+                        }
+                        else {
+                            accountNameInput.val(data.message);
+                        }
+                    }
+                });
+            }
+            else {
+                queryAccountNameForm[0].reportValidity()
+            }
+        }
+
+        $(function () {
+            $('.validateDontSubmit').on('submit', function (e) {
+                e.preventDefault();
+                return false;
+            })
+
+            $.get({
+                url: "/banks-list",
+                dataType: "json",
+                success: function (data, status, jqXhr) {
+                    if (data.status == "success") {
+                        for (var i in data.banks) {
+                            const bank = data.banks[i];
+                            banksSelect.options[banksSelect.options.length] = new Option(bank.name, bank.reference);
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+}

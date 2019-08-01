@@ -68,11 +68,28 @@ namespace Staaworks.PaymentIntegrator.Paystack.Implementations.Requests.BankTran
             return true;
         }
 
+        /// <summary>
+        /// Options required:
+        /// <br />
+        /// PAYSTACK_BANK_REFERENCE_KEY
+        /// PAYSTACK_BANK_ACCOUNT_NUMBER_KEY
+        /// PAYSTACK_BANK_RECIPIENT_NAME_KEY
+        /// PAYSTACK_CURRENCY_KEY
+        /// PAYSTACK_DESCRIPTION_KEY
+        /// PAYSTACK_METADATA_KEY
+        /// </summary>
+        /// <param name="options"></param>
+        public override void Initialize (IDictionary<string, string> options) => base.Initialize(options);
+
         protected override void InitializeWithOptions (IDictionary<string, string> options)
         {
             BankReference = options[PAYSTACK_BANK_REFERENCE_KEY] ?? throw new ArgumentNullException(nameof(BankReference));
             AccountNumber = options[PAYSTACK_BANK_ACCOUNT_NUMBER_KEY] ?? throw new ArgumentNullException(nameof(AccountNumber));
-            RecipientName = options[PAYSTACK_BANK_RECIPIENT_NAME_KEY] ?? throw new ArgumentNullException(nameof(RecipientName));
+
+            if (options.TryGetValue(PAYSTACK_BANK_RECIPIENT_NAME_KEY, out var recipientName))
+            {
+                RecipientName = recipientName;
+            }
 
             if (options.TryGetValue(PAYSTACK_CURRENCY_KEY, out var currency))
             {

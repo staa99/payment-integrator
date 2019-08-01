@@ -7,7 +7,7 @@ namespace Staaworks.PaymentIntegrator.Paystack.Implementations
 {
     public abstract class BaseRequest : IRequest
     {
-        public void Initialize (IDictionary<string, string> options)
+        public virtual void Initialize (IDictionary<string, string> options)
         {
             try
             {
