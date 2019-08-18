@@ -12,8 +12,8 @@ These instructions will get you a copy of the project up and running on your loc
 
 What you need to begin integrating the right way ;-)
 
-* The `StaaPaymentIntegrator` nuget package.
-* The particular implementation of your payment provider. Usually something like, `StaaPaymentIntegrator.***`.
+* The `Staaworks.PaymentIntegrator` nuget package.
+* The particular implementation of your payment provider. Usually something like, `Staaworks.PaymentIntegrator.***`.
 
 ### Installing
 
