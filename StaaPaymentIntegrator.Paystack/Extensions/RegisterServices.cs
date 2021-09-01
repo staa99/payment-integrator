@@ -46,7 +46,7 @@ namespace Staaworks.PaymentIntegrator.Paystack.Extensions
             try
             {
                 var optionsProvider = s.GetServices<IPaymentProviderConfiguration>().First(c => c.ProviderName == key) as IPaystackConfiguration;
-                var paystack = s.GetServices<IProvider>() as Paystack;
+                var paystack = s.GetService<IProvider>() as Paystack;
 
                 paystack.InitializeBanks(optionsProvider.BanksListUrl, optionsProvider.BankAccountNameQueryUrl);
                 return paystack;
@@ -63,7 +63,7 @@ namespace Staaworks.PaymentIntegrator.Paystack.Extensions
              try
              {
                  var optionsProvider = s.GetServices<IPaymentProviderConfiguration>().First(c => c.ProviderName == key) as IPaystackConfiguration;
-                 var paystack = s.GetServices<IProvider>() as Paystack;
+                 var paystack = s.GetService<IProvider>() as Paystack;
 
                  paystack.InitializePayments(
                      optionsProvider.PaymentVerificationUrl,
@@ -86,7 +86,7 @@ namespace Staaworks.PaymentIntegrator.Paystack.Extensions
              try
              {
                  var optionsProvider = s.GetServices<IPaymentProviderConfiguration>().First(c => c.ProviderName == key) as IPaystackConfiguration;
-                 var paystack = s.GetServices<IProvider>() as Paystack;
+                 var paystack = s.GetService<IProvider>() as Paystack;
 
                  paystack.InitializePayments(
                      optionsProvider.PaymentVerificationUrl,
